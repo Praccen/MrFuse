@@ -1,4 +1,4 @@
-class TestObject extends GraphicsObject {
+class Quad extends GraphicsObject {
     constructor(gl, shaderProgram, texture) {
         super(gl, shaderProgram);
         this.vertices = new Float32Array([
@@ -28,4 +28,4 @@ class TestObject extends GraphicsObject {
     }
 }
 ;
-//# sourceMappingURL=TestObject.js.map
+//# sourceMappingURL=Quad.js.map

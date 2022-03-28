@@ -11,16 +11,6 @@ function initWebGL() {
 		return;
 	}
 
-	// Enable depth test
-	gl.enable(gl.DEPTH_TEST);
-
-	//Enable alpha blending
-	gl.enable(gl.BLEND);
-	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-	//Set clear color
-	gl.clearColor(0.55, 0.55, 0.65, 1.0);
-
 	return gl;
 }
 
@@ -68,6 +58,7 @@ window.onload = () => {
 	}
 
 	const rendering = new Rendering(gl, texturesRequestedVsLoaded);
+	const game = new Game(rendering);
 
 	window.addEventListener("resize", function () {
 		resize(gl);
@@ -103,7 +94,7 @@ window.onload = () => {
 				break;
 			}
 
-			rendering.update(updateRatio);
+			game.update(updateRatio);
 			updateTimer -= updateRatio;
 			maxCounter++;
 		}

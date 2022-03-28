@@ -48,17 +48,14 @@ class GraphicsObject {
 
     setVertexData(data: Float32Array) {
         this.gl.bindVertexArray(this.VAO);
-
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VBO); // TODO: Not needed I think
         this.gl.bufferData(this.gl.ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
-
         this.gl.bindVertexArray(null);
     }
 
-    setIndexData(data) {
+    setIndexData(data: Int32Array) {
         this.gl.bindVertexArray(this.VAO);
 
-        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO); // TODO: Not needed I think
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.EBO);
         this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
     
         this.gl.bindVertexArray(null);

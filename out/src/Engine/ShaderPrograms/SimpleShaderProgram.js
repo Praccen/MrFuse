@@ -1,4 +1,4 @@
-const vertexShaderSrc = `#version 320 es
+const vertexShaderSrc = `#version 300 es
 // If inputs change, also update SimpleShaderProgram::setupVertexAttributePointers to match
 layout (location = 0) in vec3 inPosition;
 layout (location = 1) in vec4 inColor;
@@ -17,17 +17,21 @@ void main() {
     color = inColor;
     texCoords = vec2(textureMatrix * vec4(inTexCoords, 0.0, 1.0));
 }`;
-const fragmentShaderSrc = `#version 320 es
+const fragmentShaderSrc = `#version 300 es
 precision highp float;
 
 in vec4 color;
 in vec2 texCoords;
 
 // If uniforms change, also update SimpleShaderProgram to match
-layout(location = 3) uniform sampler2D texture0;
-layout(location = 4) uniform int useTexture;
+uniform sampler2D texture0;
+uniform int useTexture;
 
 out vec4 FragColor;
+
+float mod(float num, float modVal) {
+    return num - modVal * floor(num/modVal);
+}
 
 mat4 thresholdMatrix = mat4(
     1.0, 9.0, 3.0, 11.0,
@@ -45,22 +49,20 @@ void main()
         FragColor = color;
     }
 
-    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4)))][int(floor(mod(gl_FragCoord.y, 4)))] / 17;
-    if (threshold >= FragColor.a) {
-        discard;
-    }
+    // float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4.0)))][int(floor(mod(gl_FragCoord.y, 4.0)))] / 17.0;
+    // if (threshold >= FragColor.a) {
+    //     discard;
+    // }
 }`;
 class SimpleShaderProgram extends ShaderProgram {
     constructor(gl) {
         super(gl, vertexShaderSrc, fragmentShaderSrc);
-        this.uniformBindings = new Map([
-            ["modelMatrix", 0,],
-            ["viewMatrix", 1],
-            ["textureMatrix", 2],
-            ["texture0", 3],
-            ["useTexture", 4],
-        ]);
         this.use();
+        this.setUniformLocation("modelMatrix");
+        this.setUniformLocation("viewMatrix");
+        this.setUniformLocation("textureMatrix");
+        this.setUniformLocation("texture0");
+        this.setUniformLocation("useTexture");
         this.gl.uniform1i(this.uniformBindings["texture0"], 0);
     }
     setupVertexAttributePointers() {
