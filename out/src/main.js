@@ -50,9 +50,9 @@ window.onload = () => {
     });
     let lastTick = null;
     //Fixed update rate
-    let updateRatio = 1.0 / 60.0;
+    let minUpdateRate = 1.0 / 60.0;
     let updateTimer = 0.0;
-    let maxCounter = 0;
+    let updatesSinceRender = 0;
     function waitForTextureLoading() {
         if (texturesRequestedVsLoaded.loaded < texturesRequestedVsLoaded.req) {
             requestAnimationFrame(waitForTextureLoading);
@@ -65,21 +65,23 @@ window.onload = () => {
         lastTick = now;
         // Constant update rate
         updateTimer += dt;
-        maxCounter = 0;
+        updatesSinceRender = 0;
         //Only update if update timer goes over update rate
-        while (updateTimer >= updateRatio) {
-            if (maxCounter >= 20) {
+        while (updateTimer >= minUpdateRate) {
+            if (updatesSinceRender >= 20) {
+                // Too many updates, throw away the rest of dt (makes the game run in slow-motion)
                 updateTimer = 0;
                 break;
             }
-            game.update(updateRatio);
-            updateTimer -= updateRatio;
-            maxCounter++;
+            game.update(minUpdateRate);
+            updateTimer -= minUpdateRate;
+            updatesSinceRender++;
         }
-        //Only draw if game has been updated.
-        if (maxCounter != 0) {
-            rendering.draw();
+        if (updatesSinceRender == 0) { // dt is faster than min update rate, allow faster updates
+            game.update(updateTimer);
+            updateTimer = 0.0;
         }
+        rendering.draw();
         requestAnimationFrame(gameLoop);
     }
     console.log("Everything is ready.");

@@ -1,6 +1,7 @@
 class Game {
     constructor(rendering) {
         this.rendering = rendering;
+        this.rendering.camera.setZoom(0.1);
         this.testQuad = this.rendering.getNewQuad();
         this.testQuad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
     }
