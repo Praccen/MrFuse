@@ -6,7 +6,7 @@ class Game {
     constructor(rendering: Rendering) {
         this.rendering = rendering;
 
-        this.rendering.camera.setZoom(0.1);
+        this.rendering.camera.setZoom(0.5);
 
         this.testQuad = this.rendering.getNewQuad();
         this.testQuad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
@@ -14,7 +14,7 @@ class Game {
 
 
     update(dt: number) {
-        this.testQuad.modelMatrix.translate(0.1 * dt, 0.0, 0.0);
-        this.testQuad.textureMatrix.translate(0.1 * dt, 0.0, 0.0);
+        // this.testQuad.modelMatrix.translate(0.1 * dt, 0.0, 0.0);
+        // this.testQuad.textureMatrix.translate(0.1 * dt, 0.0, 0.0);
     }
 };

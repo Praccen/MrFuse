@@ -1,4 +1,4 @@
-const vertexShaderSrc = `#version 300 es
+const simpleVertexShaderSrc = `#version 300 es
 // If inputs change, also update SimpleShaderProgram::setupVertexAttributePointers to match
 layout (location = 0) in vec3 inPosition;
 layout (location = 1) in vec4 inColor;
@@ -17,7 +17,7 @@ void main() {
     color = inColor;
     texCoords = vec2(textureMatrix * vec4(inTexCoords, 0.0, 1.0));
 }`;
-const fragmentShaderSrc = `#version 300 es
+const simpleFragmentShaderSrc = `#version 300 es
 precision highp float;
 
 in vec4 color;
@@ -56,7 +56,7 @@ void main()
 }`;
 class SimpleShaderProgram extends ShaderProgram {
     constructor(gl) {
-        super(gl, vertexShaderSrc, fragmentShaderSrc);
+        super(gl, simpleVertexShaderSrc, simpleFragmentShaderSrc);
         this.use();
         this.setUniformLocation("modelMatrix");
         this.setUniformLocation("viewMatrix");
@@ -67,11 +67,12 @@ class SimpleShaderProgram extends ShaderProgram {
     }
     setupVertexAttributePointers() {
         // Change if input layout changes in shaders
-        this.gl.vertexAttribPointer(0, 3, this.gl.FLOAT, false, 9 * 4, 0);
+        const stride = 9 * 4;
+        this.gl.vertexAttribPointer(0, 3, this.gl.FLOAT, false, stride, 0);
         this.gl.enableVertexAttribArray(0);
-        this.gl.vertexAttribPointer(1, 4, this.gl.FLOAT, false, 9 * 4, 3 * 4);
+        this.gl.vertexAttribPointer(1, 4, this.gl.FLOAT, false, stride, 3 * 4);
         this.gl.enableVertexAttribArray(1);
-        this.gl.vertexAttribPointer(2, 2, this.gl.FLOAT, false, 9 * 4, 7 * 4);
+        this.gl.vertexAttribPointer(2, 2, this.gl.FLOAT, false, stride, 7 * 4);
         this.gl.enableVertexAttribArray(2);
     }
 }

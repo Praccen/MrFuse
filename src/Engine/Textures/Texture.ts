@@ -3,12 +3,10 @@ class Texture {
 	width: number;
 	height: number;
 	textureIndex: number;
+    texture: WebGLTexture;
 
     // Private
     private gl: WebGL2RenderingContext;
-
-    private texture: WebGLTexture;
-
 	private missingTextureData: Uint8Array;
 
     constructor(gl: WebGL2RenderingContext, textureIndex: number) {
