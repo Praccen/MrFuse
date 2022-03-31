@@ -1,17 +1,24 @@
 class Input {
 	keys: boolean[];
+	mousePosition: {x: number, y:number};
 
 	constructor() {
 		this.keys = [];
+		this.mousePosition = {x: 0, y: 0};
+
 
 		//----Controls----
 		let self = this;
 		document.addEventListener("keydown", function (event) {
-			self.keys[event.keyCode] = true;
+			self.keys[event.code] = true;
 		});
 
 		document.addEventListener("keyup", function (event) {
-			self.keys[event.keyCode] = false;
+			self.keys[event.code] = false;
+		});
+
+		canvas.addEventListener("mousemove", function (event) {
+			self.mousePosition =  {x: event.clientX, y: event.clientY};
 		});
 		//----------------
 	}
