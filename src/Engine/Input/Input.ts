@@ -11,11 +11,11 @@ class Input {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values <-- for key codes
 		let self = this;
 		document.addEventListener("keydown", function (event) {
-			self.keys[event.code] = true;
+			self.keys[event.key] = true;
 		});
 
 		document.addEventListener("keyup", function (event) {
-			self.keys[event.code] = false;
+			self.keys[event.key] = false;
 		});
 
 		canvas.addEventListener("mousemove", function (event) {

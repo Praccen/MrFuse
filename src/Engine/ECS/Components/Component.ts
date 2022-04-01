@@ -1,7 +1,8 @@
 enum ComponentTypeEnum {
     GRAPHICS,
     MOVEMENT,
-    POSITION
+    POSITION,
+    INPUT,
 }
 
 class Component {

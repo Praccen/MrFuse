@@ -21,6 +21,8 @@ class Game {
         gc.quad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent());
+        this.ecsManager.addComponent(entity, new InputComponent());
+        this.ecsManager.addComponent(entity, new MovementComponent());
         return entity;
     }
 

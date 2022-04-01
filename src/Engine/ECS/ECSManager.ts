@@ -21,7 +21,9 @@ class ECSManager {
     }
 
     initializeSystems() {
-        this.systems.set("GRAPHICS", new GraphicsSystem());
+      this.systems.set("INPUT", new InputSystem());
+      this.systems.set("MOVEMENT", new MovementSystem());
+      this.systems.set("GRAPHICS", new GraphicsSystem());
     }
 
     update(dt: number) {
@@ -34,6 +36,8 @@ class ECSManager {
         this.removeComponents();
         this.removeEntitiesMarkedForDeletion();
 
+        this.systems.get("INPUT").update(dt);
+        this.systems.get("MOVEMENT").update(dt);
         this.systems.get("GRAPHICS").update(dt);
     }
 
@@ -87,7 +91,6 @@ class ECSManager {
     private addQueuedComponents()
     {
         for (const compEntityPair of this.componentAdditionQueue) {
-
             // If enitity does not already have component, proceed
             if (compEntityPair.entity.addComponent(compEntityPair.component)) {
 
