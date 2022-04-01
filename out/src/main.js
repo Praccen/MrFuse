@@ -43,8 +43,9 @@ window.onload = () => {
         req: 0,
         loaded: 0,
     };
+    const ecsManager = new ECSManager();
     const rendering = new Rendering(gl, texturesRequestedVsLoaded);
-    const game = new Game(rendering);
+    const game = new Game(rendering, ecsManager);
     window.addEventListener("resize", function () {
         resize(gl);
     });
@@ -74,13 +75,16 @@ window.onload = () => {
                 break;
             }
             game.update(minUpdateRate);
+            ecsManager.update(minUpdateRate);
             updateTimer -= minUpdateRate;
             updatesSinceRender++;
         }
         if (updatesSinceRender == 0) { // dt is faster than min update rate, allow faster updates
             game.update(updateTimer);
+            ecsManager.update(updateTimer);
             updateTimer = 0.0;
         }
+        ecsManager.updateRenderingSystems();
         rendering.draw();
         requestAnimationFrame(gameLoop);
     }

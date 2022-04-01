@@ -8,6 +8,7 @@ class Input {
 
 
 		//----Controls----
+        // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values <-- for key codes
 		let self = this;
 		document.addEventListener("keydown", function (event) {
 			self.keys[event.code] = true;

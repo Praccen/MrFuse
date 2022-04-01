@@ -1,1 +1,1 @@
-{"version":3,"file":"GraphicsComponent.js","sourceRoot":"","sources":["../../../../../src/Engine/ECS/Components/GraphicsComponent.ts"],"names":[],"mappings":"AAAA,MAAM,iBAAkB,SAAQ,SAAS;IAGrC,YAAY,IAAU;QAClB,KAAK,CAAC,iBAAiB,CAAC,QAAQ,CAAC,CAAC;IACtC,CAAC;CACJ;AAAA,CAAC"}
+{"version":3,"file":"GraphicsComponent.js","sourceRoot":"","sources":["../../../../../src/Engine/ECS/Components/GraphicsComponent.ts"],"names":[],"mappings":"AAAA,MAAM,iBAAkB,SAAQ,SAAS;IAGrC,YAAY,IAAU;QAClB,KAAK,CAAC,iBAAiB,CAAC,QAAQ,CAAC,CAAC;QAClC,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACrB,CAAC;CACJ;AAAA,CAAC"}

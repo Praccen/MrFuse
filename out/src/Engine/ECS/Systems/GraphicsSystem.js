@@ -6,7 +6,9 @@ class GraphicsSystem extends System {
         for (const e of this.entities) {
             let graphComp = e.getComponent(ComponentTypeEnum.GRAPHICS);
             let posComp = e.getComponent(ComponentTypeEnum.POSITION);
-            posComp.calculateMatrix(graphComp.quad.modelMatrix);
+            if (graphComp && posComp) {
+                posComp.calculateMatrix(graphComp.quad.modelMatrix);
+            }
         }
     }
 }

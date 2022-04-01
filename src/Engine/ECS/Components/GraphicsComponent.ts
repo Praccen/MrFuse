@@ -3,5 +3,6 @@ class GraphicsComponent extends Component {
 
     constructor(quad: Quad) {
         super(ComponentTypeEnum.GRAPHICS);
+        this.quad = quad;
     }
 };

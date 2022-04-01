@@ -1,10 +1,7 @@
 class Entity {
     constructor(id) {
-        this._id = id;
+        this.id = id;
         this.components = new Array();
-    }
-    get id() {
-        return this.id;
     }
     addComponent(component) {
         if (!this.hasComponent(component.type)) {

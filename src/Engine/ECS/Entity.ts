@@ -1,15 +1,11 @@
 class Entity {
-    private _id: number;
+    public readonly id: number;
     private name: string;
     private components: Array<Component>;
 
     constructor(id: number) {
-        this._id = id;
+        this.id = id;
         this.components = new Array<Component>();
-    }
-
-    get id():number { // Writing is forbidden if there is only a getter
-        return this.id;
     }
 
     addComponent(component: Component): boolean {

@@ -1,44 +1,35 @@
 class Game {
     private rendering: Rendering;
+    private ecsManager: ECSManager;
     private input: Input;
 
-    private testQuad: Quad;
+    private testEntity: Entity;
 
-    constructor(rendering: Rendering) {
+    constructor(rendering: Rendering, ecsManager: ECSManager) {
         this.rendering = rendering;
+        this.ecsManager = ecsManager;
         this.input = new Input();
 
         this.rendering.camera.setZoom(0.5);
 
-        this.testQuad = this.rendering.getNewQuad();
-        this.testQuad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
+        this.testEntity = this.createQuadEntity();
+    }
+
+    createQuadEntity(): Entity {
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        gc.quad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
+        this.ecsManager.addComponent(entity, gc);
+        this.ecsManager.addComponent(entity, new PositionComponent());
+        return entity;
     }
 
 
     update(dt: number) {
-        // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
-        
-        if (this.input.keys["ArrowLeft"]) {
-            // Left
-            this.testQuad.modelMatrix.translate(-0.5 * dt, 0.0, 0.0);
+        let posComp = <PositionComponent>this.testEntity.getComponent(ComponentTypeEnum.POSITION);
+        if (posComp) {
+            posComp.position.x = (this.input.mousePosition.x / canvas.clientWidth) * 2.0 - 1.0;
+            posComp.position.y = ((canvas.clientHeight - this.input.mousePosition.y) / canvas.clientHeight) * 2.0 - 1.0;
         }
-        if (this.input.keys["ArrowUp"]) {
-            // Up
-            this.testQuad.modelMatrix.translate(0.0, 0.5 * dt, 0.0);
-        }
-        if (this.input.keys["ArrowRight"]) {
-            // Right
-            this.testQuad.modelMatrix.translate(0.5 * dt, 0.0, 0.0);
-        }
-        if (this.input.keys["ArrowDown"]) {
-            // Down
-            this.testQuad.modelMatrix.translate(0.0, -0.5 * dt, 0.0);
-        }
-        
-        this.testQuad.modelMatrix.setTranslate((this.input.mousePosition.x / canvas.clientWidth) * 2.0 - 1.0, ((canvas.clientHeight - this.input.mousePosition.y) / canvas.clientHeight) * 2.0 - 1.0, 0.0);
-
-
-        // this.testQuad.modelMatrix.translate(0.1 * dt, 0.0, 0.0);
-        // this.testQuad.textureMatrix.translate(0.1 * dt, 0.0, 0.0);
     }
 };

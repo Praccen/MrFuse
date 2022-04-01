@@ -4,10 +4,7 @@ class System {
 
     constructor(componentTypes: Array<ComponentTypeEnum>) {
         this.requiredComponents = componentTypes;
-    }
-
-    initialize() {
-
+        this.entities = new Array<Entity>();
     }
 
     entityHasCorrectComponents(entity: Entity): boolean {

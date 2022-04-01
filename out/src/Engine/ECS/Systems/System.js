@@ -1,8 +1,7 @@
 class System {
     constructor(componentTypes) {
         this.requiredComponents = componentTypes;
-    }
-    initialize() {
+        this.entities = new Array();
     }
     entityHasCorrectComponents(entity) {
         for (const type of this.requiredComponents) {
