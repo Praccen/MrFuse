@@ -12,13 +12,22 @@ class Game {
     createQuadEntity() {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
+        gc.quad.texture.loadFromFile("Assets/Textures/Character/Character.png");
         this.ecsManager.addComponent(entity, gc);
-        this.ecsManager.addComponent(entity, new PositionComponent());
+        let pc = new PositionComponent();
+        pc.scale.xy = new Vec2(1.0, 1.5);
+        this.ecsManager.addComponent(entity, pc);
         this.ecsManager.addComponent(entity, new InputComponent());
         this.ecsManager.addComponent(entity, new MovementComponent());
         this.ecsManager.addComponent(entity, new CameraFocusComponent(this.rendering.camera));
         this.ecsManager.addComponent(entity, new CollisionComponent());
+        let ac = new AnimationComponent();
+        ac.spriteMap.setNrOfSprites(2, 2);
+        ac.startingTile = { x: 0, y: 1 };
+        ac.advanceBy = { x: 1.0, y: 0.0 };
+        ac.modAdvancement = { x: 2.0, y: 1.0 };
+        ac.updateInterval = 0.7;
+        this.ecsManager.addComponent(entity, ac);
         return entity;
     }
     createOtherEntity() {
@@ -38,7 +47,7 @@ class Game {
     createCollisionEntity(xPos, yPos) {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
+        gc.quad.texture.loadFromFile("Assets/Textures/Buttons/Button.png");
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent(xPos, yPos));
         let cc = new CollisionComponent();
@@ -50,7 +59,6 @@ class Game {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.textureMatrix.setScale(10.0, 1.0, 1.0);
-        // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, -1.0);
         pc.scale.xy.x = 10.0;
