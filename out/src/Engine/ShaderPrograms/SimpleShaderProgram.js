@@ -29,10 +29,6 @@ uniform int useTexture;
 
 out vec4 FragColor;
 
-float mod(float num, float modVal) {
-    return num - modVal * floor(num/modVal);
-}
-
 mat4 thresholdMatrix = mat4(
     1.0, 9.0, 3.0, 11.0,
     13.0, 5.0, 15.0, 7.0,
