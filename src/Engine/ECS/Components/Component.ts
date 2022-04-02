@@ -4,6 +4,7 @@ enum ComponentTypeEnum {
     INPUT,
     MOVEMENT,
     POSITION,
+    CAMERAFOCUS,
 }
 
 class Component {

@@ -14,7 +14,7 @@ class InputSystem extends System {
         
 
         if(this.input.keys['w']) {
-          movComp.accelerationDirection['y'] += 10.0; 
+          movComp.accelerationDirection['y'] += 10.0;
         }
 
         if(this.input.keys['s']) {

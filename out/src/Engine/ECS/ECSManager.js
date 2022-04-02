@@ -13,6 +13,7 @@ class ECSManager {
         this.systems.set("ANIMATION", new AnimationSystem());
         this.systems.set("INPUT", new InputSystem());
         this.systems.set("MOVEMENT", new MovementSystem());
+        this.systems.set("CAMERA", new CameraSystem());
         this.systems.set("GRAPHICS", new GraphicsSystem());
     }
     update(dt) {
@@ -25,6 +26,7 @@ class ECSManager {
         this.removeEntitiesMarkedForDeletion();
         this.systems.get("INPUT").update(dt);
         this.systems.get("MOVEMENT").update(dt);
+        this.systems.get("CAMERA").update(dt);
         this.systems.get("GRAPHICS").update(dt);
     }
     updateRenderingSystems(dt) {

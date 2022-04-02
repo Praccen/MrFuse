@@ -5,6 +5,7 @@ class Game {
         this.input = new Input();
         this.rendering.camera.setZoom(0.5);
         this.testEntity = this.createQuadEntity();
+        this.createOtherEntity();
     }
     createQuadEntity() {
         let entity = this.ecsManager.createEntity();
@@ -13,6 +14,22 @@ class Game {
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent());
         this.ecsManager.addComponent(entity, new InputComponent());
+        this.ecsManager.addComponent(entity, new MovementComponent());
+        this.ecsManager.addComponent(entity, new CameraFocusComponent(this.rendering.camera));
+        let ac = new AnimationComponent();
+        ac.spriteMap.setNrOfSprites(2, 1);
+        ac.advanceBy = { x: 1, y: 0 };
+        ac.modAdvancement = { x: 2, y: 0 };
+        ac.updateInterval = 0.5;
+        this.ecsManager.addComponent(entity, ac);
+        return entity;
+    }
+    createOtherEntity() {
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        gc.quad.texture.loadFromFile("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png");
+        this.ecsManager.addComponent(entity, gc);
+        this.ecsManager.addComponent(entity, new PositionComponent());
         this.ecsManager.addComponent(entity, new MovementComponent());
         let ac = new AnimationComponent();
         ac.spriteMap.setNrOfSprites(2, 1);
@@ -30,5 +47,4 @@ class Game {
         // }
     }
 }
-;
 //# sourceMappingURL=Game.js.map

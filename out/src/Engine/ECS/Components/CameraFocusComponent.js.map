@@ -1,0 +1,1 @@
+{"version":3,"file":"CameraFocusComponent.js","sourceRoot":"","sources":["../../../../../src/Engine/ECS/Components/CameraFocusComponent.ts"],"names":[],"mappings":"AAAA,MAAM,oBAAqB,SAAQ,SAAS;IAI1C,YAAY,MAAM;QAChB,KAAK,CAAC,iBAAiB,CAAC,WAAW,CAAC,CAAC;QACrC,IAAI,CAAC,MAAM,GAAG,EAAC,CAAC,EAAE,GAAG,EAAE,CAAC,EAAE,GAAG,EAAC,CAAC;QAC/B,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACvB,CAAC;CACF"}

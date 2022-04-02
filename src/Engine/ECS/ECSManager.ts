@@ -24,6 +24,7 @@ class ECSManager {
         this.systems.set("ANIMATION", new AnimationSystem());
         this.systems.set("INPUT", new InputSystem());
         this.systems.set("MOVEMENT", new MovementSystem());
+        this.systems.set("CAMERA", new CameraSystem());
         this.systems.set("GRAPHICS", new GraphicsSystem());
     }
 
@@ -39,6 +40,7 @@ class ECSManager {
 
         this.systems.get("INPUT").update(dt);
         this.systems.get("MOVEMENT").update(dt);
+        this.systems.get("CAMERA").update(dt);
         this.systems.get("GRAPHICS").update(dt);
     }
 

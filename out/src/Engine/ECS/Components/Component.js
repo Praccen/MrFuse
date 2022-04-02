@@ -5,6 +5,7 @@ var ComponentTypeEnum;
     ComponentTypeEnum[ComponentTypeEnum["INPUT"] = 2] = "INPUT";
     ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 3] = "MOVEMENT";
     ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 4] = "POSITION";
+    ComponentTypeEnum[ComponentTypeEnum["CAMERAFOCUS"] = 5] = "CAMERAFOCUS";
 })(ComponentTypeEnum || (ComponentTypeEnum = {}));
 class Component {
     constructor(type) {
