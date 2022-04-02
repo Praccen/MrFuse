@@ -9,6 +9,7 @@ class MovementComponent extends Component {
     jumpAllowed: boolean;
     jumpRequested: boolean;
     drag: number;
+    defaultDrag: number;
 
     constructor() {
         super(ComponentTypeEnum.MOVEMENT);
@@ -21,6 +22,7 @@ class MovementComponent extends Component {
         this.jumpPower = 5.0;
         this.jumpAllowed = true;
         this.jumpRequested = false;
-        this.drag = 5.0;
+        this.defaultDrag = 1.0;
+        this.drag = this.defaultDrag;
     }
 }

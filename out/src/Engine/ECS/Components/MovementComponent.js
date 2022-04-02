@@ -10,7 +10,8 @@ class MovementComponent extends Component {
         this.jumpPower = 5.0;
         this.jumpAllowed = true;
         this.jumpRequested = false;
-        this.drag = 5.0;
+        this.defaultDrag = 1.0;
+        this.drag = this.defaultDrag;
     }
 }
 //# sourceMappingURL=MovementComponent.js.map

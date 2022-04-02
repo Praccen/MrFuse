@@ -9,6 +9,7 @@ class Game {
         this.createCollisionEntity(-4.0, 0.0);
         this.createCollisionEntity(-2.0, 2.0);
         this.createFloor();
+        this.createMobile();
     }
     createPlayerEntity() {
         let entity = this.ecsManager.createEntity();
@@ -59,6 +60,21 @@ class Game {
         this.ecsManager.addComponent(entity, pc);
         let cc = new CollisionComponent();
         cc.isConstraint = true;
+        this.ecsManager.addComponent(entity, cc);
+        return entity;
+    }
+    createMobile() {
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        gc.quad.textureMatrix.setScale(0.5, 0.5, 1.0);
+        this.ecsManager.addComponent(entity, gc);
+        let pc = new PositionComponent(0.0, 4.0);
+        pc.scale.xy.x = 0.5;
+        pc.scale.xy.y = 0.5;
+        this.ecsManager.addComponent(entity, pc);
+        this.ecsManager.addComponent(entity, new MovementComponent());
+        let cc = new CollisionComponent();
+        cc.bounce = true;
         this.ecsManager.addComponent(entity, cc);
         return entity;
     }
