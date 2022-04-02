@@ -18,6 +18,15 @@ class MovementSystem extends System {
 
         movComp.velocity[coord] += movComp.constantAcceleration[coord] * dt;
 
+        movComp.velocity[coord] = Math.min(
+          movComp.velocity[coord],
+          movComp.maxVelocity[coord]
+        );
+        movComp.velocity[coord] = Math.max(
+          movComp.velocity[coord],
+          movComp.minVelocity[coord]
+        );
+
         posComp.position[coord] += movComp.velocity[coord] * dt;
 
         movComp.accelerationDirection[coord] = 0.0;

@@ -1,8 +1,6 @@
 class CameraSystem extends System {
-
   constructor() {
     super([ComponentTypeEnum.CAMERAFOCUS, ComponentTypeEnum.POSITION]);
-
   }
 
   update(dt: number) {
@@ -13,9 +11,11 @@ class CameraSystem extends System {
       let posComp = <PositionComponent>(
         e.getComponent(ComponentTypeEnum.POSITION)
       );
-      
+
       camComp.camera.setPosition(
-        posComp.position.x + camComp.offset.x, posComp.position.y + camComp.offset.y);
+        posComp.position.x + camComp.offset.x,
+        posComp.position.y + camComp.offset.y
+      );
     }
   }
 }

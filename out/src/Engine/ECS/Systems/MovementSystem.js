@@ -10,9 +10,12 @@ class MovementSystem extends System {
             Object.keys(posComp.position).forEach((coord) => {
                 movComp.velocity[coord] += movComp.accelerationDirection[coord] * dt;
                 movComp.velocity[coord] += movComp.constantAcceleration[coord] * dt;
+                movComp.velocity[coord] = Math.min(movComp.velocity[coord], movComp.maxVelocity[coord]);
+                movComp.velocity[coord] = Math.max(movComp.velocity[coord], movComp.minVelocity[coord]);
                 posComp.position[coord] += movComp.velocity[coord] * dt;
                 movComp.accelerationDirection[coord] = 0.0;
             });
+            console.log(movComp.velocity);
         }
     }
 }
