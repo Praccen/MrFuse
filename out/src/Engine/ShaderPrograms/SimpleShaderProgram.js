@@ -45,10 +45,10 @@ void main()
         FragColor = color;
     }
 
-    // float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4.0)))][int(floor(mod(gl_FragCoord.y, 4.0)))] / 17.0;
-    // if (threshold >= FragColor.a) {
-    //     discard;
-    // }
+    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4.0)))][int(floor(mod(gl_FragCoord.y, 4.0)))] / 17.0;
+    if (threshold >= FragColor.a) {
+        discard;
+    }
 }`;
 class SimpleShaderProgram extends ShaderProgram {
     constructor(gl) {

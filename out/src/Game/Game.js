@@ -6,7 +6,7 @@ class Game {
         this.rendering.camera.setZoom(0.2);
         this.testEntity = this.createQuadEntity();
         this.createOtherEntity();
-        this.createCollisionEntity(3.0, 0.0);
+        this.createCollisionEntity(3.5, 0.0);
         this.createFloor();
     }
     createQuadEntity() {
@@ -49,6 +49,7 @@ class Game {
     createFloor() {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        gc.quad.textureMatrix.setScale(10.0, 1.0, 1.0);
         // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, -1.0);
