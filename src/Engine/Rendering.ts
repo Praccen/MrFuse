@@ -2,6 +2,8 @@ class Rendering {
 	// public
 	camera: Camera;
 
+    useCrt: boolean;
+
 	// private
 	private gl: WebGL2RenderingContext;
 	private texturesRequestedVsLoaded: object;
@@ -22,6 +24,8 @@ class Rendering {
 		this.gl = gl;
         this.texturesRequestedVsLoaded = texturesRequestedVsLoaded;
 		this.camera = new Camera(gl);
+
+        this.useCrt = true;
 
 		this.simpleShaderProgram = new SimpleShaderProgram(this.gl);
 		this.crtShaderProgram = new CrtShaderProgram(this.gl);
@@ -59,8 +63,10 @@ class Rendering {
 	}
 
 	draw() {
-		// Render scene to crt framebuffer
-		this.crtFramebuffer.bind(this.gl.FRAMEBUFFER);
+        if (this.useCrt ) {
+            // Render scene to crt framebuffer
+            this.crtFramebuffer.bind(this.gl.FRAMEBUFFER);
+        }
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT | this.gl.STENCIL_BUFFER_BIT);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		
@@ -73,18 +79,19 @@ class Rendering {
 		// Disable depth for screen quad(s) rendering
 		this.gl.disable(this.gl.DEPTH_TEST); 
 
-		// Crt effect
-		this.screenFramebuffer.bind(this.gl.DRAW_FRAMEBUFFER); // Set screen framebuffer as output
-		this.gl.clear(this.gl.COLOR_BUFFER_BIT);    
-		this.crtShaderProgram.use();
-		this.crtQuad.draw();
+        if (this.useCrt) {
+            // Crt effect
+            this.screenFramebuffer.bind(this.gl.DRAW_FRAMEBUFFER); // Set screen framebuffer as output
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT);    
+            this.crtShaderProgram.use();
+            this.crtQuad.draw();
 
-		// Render to screen quad
-		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null); // Render directly to screen
-		this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+            // Render to screen quad
+            this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null); // Render directly to screen
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
-		this.screenQuadShaderProgram.use();
-		this.screenQuad.draw();
-		// this.input.draw();
+            this.screenQuadShaderProgram.use();
+            this.screenQuad.draw();
+        }
 	}
 };

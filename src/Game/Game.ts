@@ -1,24 +1,24 @@
 class Game {
     private rendering: Rendering;
     private ecsManager: ECSManager;
-    private input: Input;
 
-    private testEntity: Entity;
+    private playerEntity: Entity;
 
     constructor(rendering: Rendering, ecsManager: ECSManager) {
         this.rendering = rendering;
         this.ecsManager = ecsManager;
-        this.input = new Input();
 
         this.rendering.camera.setZoom(0.2);
+        this.rendering.useCrt = false;
 
-        this.testEntity = this.createQuadEntity();
-        this.createOtherEntity();
+        this.playerEntity = this.createPlayerEntity();
         this.createCollisionEntity(3.5, 0.0);
+        this.createCollisionEntity(-4.0, 0.0);
+        this.createCollisionEntity(-2.0, 2.0);
         this.createFloor();
     }
 
-    createQuadEntity(): Entity {
+    createPlayerEntity(): Entity {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile(
@@ -34,7 +34,13 @@ class Game {
             entity,
             new CameraFocusComponent(this.rendering.camera)
         );
-        this.ecsManager.addComponent(entity, new CollisionComponent());
+        let cc = new CollisionComponent();
+        cc.shape.clearVertices();
+        cc.shape.addVertex(new Vec2(-0.3, 0.45));
+        cc.shape.addVertex(new Vec2(-0.3, -0.5));
+        cc.shape.addVertex(new Vec2(0.3, -0.5));
+        cc.shape.addVertex(new Vec2(0.3, 0.45));
+        this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
         ac.spriteMap.setNrOfSprites(2, 2);
         ac.startingTile = {x: 0, y: 1};
@@ -43,23 +49,6 @@ class Game {
         ac.updateInterval = 0.7;
         this.ecsManager.addComponent(entity, ac);
 
-        return entity;
-    }
-
-    createOtherEntity(): Entity {
-        let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png"
-        );
-        this.ecsManager.addComponent(entity, gc);
-        this.ecsManager.addComponent(entity, new PositionComponent());
-        let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(2, 1);
-        ac.advanceBy = { x: 1, y: 0 };
-        ac.modAdvancement = { x: 2, y: 0 };
-        ac.updateInterval = 0.5;
-        this.ecsManager.addComponent(entity, ac);
         return entity;
     }
 
@@ -90,10 +79,6 @@ class Game {
     }
 
     update(dt: number) {
-        // let posComp = <PositionComponent>this.testEntity.getComponent(ComponentTypeEnum.POSITION);
-        // if (posComp) {
-        //     posComp.position.x = (this.input.mousePosition.x / canvas.clientWidth) * 2.0 - 1.0;
-        //     posComp.position.y = ((canvas.clientHeight - this.input.mousePosition.y) / canvas.clientHeight) * 2.0 - 1.0;
-        // }
+
     }
 }
