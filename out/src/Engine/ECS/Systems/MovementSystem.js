@@ -15,7 +15,6 @@ class MovementSystem extends System {
                 posComp.position[coord] += movComp.velocity[coord] * dt;
                 movComp.accelerationDirection[coord] = 0.0;
             });
-            console.log(movComp.velocity);
         }
     }
 }

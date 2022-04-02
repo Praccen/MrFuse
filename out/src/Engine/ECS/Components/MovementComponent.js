@@ -11,5 +11,4 @@ class MovementComponent extends Component {
         this.drag = 0.0;
     }
 }
-;
 //# sourceMappingURL=MovementComponent.js.map
