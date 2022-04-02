@@ -1,8 +1,10 @@
 var ComponentTypeEnum;
 (function (ComponentTypeEnum) {
-    ComponentTypeEnum[ComponentTypeEnum["GRAPHICS"] = 0] = "GRAPHICS";
-    ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 1] = "MOVEMENT";
-    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 2] = "POSITION";
+    ComponentTypeEnum[ComponentTypeEnum["ANIMATION"] = 0] = "ANIMATION";
+    ComponentTypeEnum[ComponentTypeEnum["GRAPHICS"] = 1] = "GRAPHICS";
+    ComponentTypeEnum[ComponentTypeEnum["INPUT"] = 2] = "INPUT";
+    ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 3] = "MOVEMENT";
+    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 4] = "POSITION";
 })(ComponentTypeEnum || (ComponentTypeEnum = {}));
 class Component {
     constructor(type) {

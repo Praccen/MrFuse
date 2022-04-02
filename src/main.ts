@@ -108,7 +108,7 @@ window.onload = () => {
 			updateTimer = 0.0;
 		}
 
-		ecsManager.updateRenderingSystems();
+		ecsManager.updateRenderingSystems(dt);
 		rendering.draw();
 		
 		requestAnimationFrame(gameLoop);

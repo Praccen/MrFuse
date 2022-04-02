@@ -10,6 +10,9 @@ class ECSManager {
         this.initializeSystems();
     }
     initializeSystems() {
+        this.systems.set("ANIMATION", new AnimationSystem());
+        this.systems.set("INPUT", new InputSystem());
+        this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("GRAPHICS", new GraphicsSystem());
     }
     update(dt) {
@@ -20,9 +23,12 @@ class ECSManager {
         this.addQueuedComponents();
         this.removeComponents();
         this.removeEntitiesMarkedForDeletion();
+        this.systems.get("INPUT").update(dt);
+        this.systems.get("MOVEMENT").update(dt);
         this.systems.get("GRAPHICS").update(dt);
     }
-    updateRenderingSystems() {
+    updateRenderingSystems(dt) {
+        this.systems.get("ANIMATION").update(dt);
     }
     createEntity() {
         const length = this.entityAdditionQueue.push(new Entity(this.entityCounter++));

@@ -21,9 +21,10 @@ class ECSManager {
     }
 
     initializeSystems() {
-      this.systems.set("INPUT", new InputSystem());
-      this.systems.set("MOVEMENT", new MovementSystem());
-      this.systems.set("GRAPHICS", new GraphicsSystem());
+        this.systems.set("ANIMATION", new AnimationSystem());
+        this.systems.set("INPUT", new InputSystem());
+        this.systems.set("MOVEMENT", new MovementSystem());
+        this.systems.set("GRAPHICS", new GraphicsSystem());
     }
 
     update(dt: number) {
@@ -41,8 +42,8 @@ class ECSManager {
         this.systems.get("GRAPHICS").update(dt);
     }
 
-    updateRenderingSystems() {
-
+    updateRenderingSystems(dt: number) {
+        this.systems.get("ANIMATION").update(dt);
     }
 
     createEntity(): Entity {
