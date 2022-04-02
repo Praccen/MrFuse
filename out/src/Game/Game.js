@@ -12,6 +12,7 @@ class Game {
     }
     createPlayerEntity() {
         let entity = this.ecsManager.createEntity();
+        this.ecsManager.addComponent(entity, new PlayerComponent());
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Character/Character.png");
         this.ecsManager.addComponent(entity, gc);
@@ -29,8 +30,8 @@ class Game {
         cc.shape.addVertex(new Vec2(0.3, 0.45));
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(2, 2);
-        ac.startingTile = { x: 0, y: 1 };
+        ac.spriteMap.setNrOfSprites(4, 4);
+        ac.startingTile = { x: 0, y: 3 };
         ac.advanceBy = { x: 1.0, y: 0.0 };
         ac.modAdvancement = { x: 2.0, y: 1.0 };
         ac.updateInterval = 0.7;

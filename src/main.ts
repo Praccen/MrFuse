@@ -1,5 +1,7 @@
 let canvas = <HTMLCanvasElement>document.getElementById("gameCanvas");
 
+let input = new Input();
+
 function initWebGL() {
 	canvas.width = 1920;
 	canvas.height = 1080;
@@ -56,7 +58,6 @@ window.onload = () => {
 		req: 0,
 		loaded: 0,
 	}
-
 	const rendering = new Rendering(gl, texturesRequestedVsLoaded);
 	const ecsManager = new ECSManager(rendering);
 	const game = new Game(rendering, ecsManager);

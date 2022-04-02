@@ -4,6 +4,7 @@ enum ComponentTypeEnum {
     GRAPHICS,
     INPUT,
     MOVEMENT,
+    PLAYER,
     POSITION,
     MAPTILE,
     CAMERAFOCUS,

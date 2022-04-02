@@ -1,4 +1,5 @@
 let canvas = document.getElementById("gameCanvas");
+let input = new Input();
 function initWebGL() {
     canvas.width = 1920;
     canvas.height = 1080;
