@@ -22,7 +22,6 @@ class MovementSystem extends System {
                 movComp.jumpAllowed = true;
             }
             movComp.jumpRequested = false;
-            // console.log(movComp.velocity);
         }
     }
 }

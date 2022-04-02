@@ -57,8 +57,8 @@ window.onload = () => {
 		loaded: 0,
 	}
 
-	const ecsManager = new ECSManager();
 	const rendering = new Rendering(gl, texturesRequestedVsLoaded);
+	const ecsManager = new ECSManager(rendering);
 	const game = new Game(rendering, ecsManager);
 
 	window.addEventListener("resize", function () {

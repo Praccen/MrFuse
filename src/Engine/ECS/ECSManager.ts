@@ -6,8 +6,13 @@ class ECSManager {
     private entityDeletionQueue: Array<number>;
     private componentAdditionQueue: Array<{entity: Entity, component: Component}>;
     private componentRemovalQueue: Array<{entity: Entity, component: Component}>;
+    camera: Camera;
+    rendering: Rendering;
 
-    constructor() {
+    constructor(rendering: Rendering) {
+        this.camera = rendering.camera;
+        this.rendering = rendering;
+
         this.systems = new Map<String, System>();
         this.entityCounter = 0;
 
@@ -26,6 +31,7 @@ class ECSManager {
         this.systems.set("INPUT", new InputSystem());
         this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("CAMERA", new CameraSystem());
+        this.systems.set("MAP", new MapSystem(this.camera.getPosition, this));
         this.systems.set("GRAPHICS", new GraphicsSystem());
     }
 
@@ -42,6 +48,8 @@ class ECSManager {
         this.systems.get("INPUT").update(dt);
         this.systems.get("MOVEMENT").update(dt);
         this.systems.get("COLLISION").update(dt);
+        this.systems.get("CAMERA").update(dt);
+        this.systems.get("MAP").update(dt);
         this.systems.get("GRAPHICS").update(dt);
         this.systems.get("CAMERA").update(dt);
     }

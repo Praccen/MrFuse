@@ -26,6 +26,10 @@ class Camera {
         return this.viewMatrix;
     }
 
+    getPosition() {
+        return {x: this.posX, y: this.posY};
+    }
+
     setPosition(posX, posY) {
         this.posX = posX;
         this.posY = posY;
