@@ -19,8 +19,6 @@ class CollisionSystem extends System {
         for (let e of this.entities) {
             let c = <CollisionComponent>e.getComponent(ComponentTypeEnum.COLLISION);
             let p = <PositionComponent>e.getComponent(ComponentTypeEnum.POSITION);
-
-            // Not required
             let m = <MovementComponent>e.getComponent(ComponentTypeEnum.MOVEMENT);
 
             // Don't check against others if this is constraint or doesn't have movement component

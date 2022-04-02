@@ -40,6 +40,12 @@ class Vec2 {
         return this;
     }
 
+    subtract(vec: Vec2) : Vec2 {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        return this;
+    }
+
     multiply(mult: number): Vec2 {
         this.x *= mult;
         this.y *= mult;

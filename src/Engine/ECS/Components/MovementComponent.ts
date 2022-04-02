@@ -5,7 +5,6 @@ class MovementComponent extends Component {
     velocity: { xy: Vec2; z: number };
     maxVelocity: { xy: Vec2; z: number };
     minVelocity: { xy: Vec2; z: number };
-    wantedVelocity: { xy: Vec2 };
     jumpPower: number;
     jumpAllowed: boolean;
     jumpRequested: boolean;
@@ -19,10 +18,9 @@ class MovementComponent extends Component {
         this.velocity = { xy: new Vec2(0.0, 0.0), z: 0.0 };
         this.maxVelocity = { xy: new Vec2(2.0, 100.0), z: 0.0 };
         this.minVelocity = { xy: new Vec2(-2.0, -100.0), z: 0.0 };
-        this.wantedVelocity = { xy: new Vec2(0.0, 0.0) };
         this.jumpPower = 5.0;
         this.jumpAllowed = true;
         this.jumpRequested = false;
-        this.drag = 0.0;
+        this.drag = 5.0;
     }
 }
