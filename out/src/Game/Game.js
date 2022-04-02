@@ -42,7 +42,7 @@ class Game {
     createCollisionEntity(xPos, yPos) {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Buttons/Button.png");
+        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent(xPos, yPos));
         let cc = new CollisionComponent();
@@ -53,6 +53,7 @@ class Game {
     createFloor() {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Ground.png");
         gc.quad.textureMatrix.setScale(10.0, 1.0, 1.0);
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, -1.0);
