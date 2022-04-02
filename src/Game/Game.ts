@@ -15,6 +15,7 @@ class Game {
         this.testEntity = this.createQuadEntity();
         this.createOtherEntity();
         this.createCollisionEntity(3.0, 0.0);
+        this.createFloor();
     }
 
     createQuadEntity(): Entity {
@@ -31,12 +32,6 @@ class Game {
             entity,
             new CameraFocusComponent(this.rendering.camera)
         );
-        let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(2, 1);
-        ac.advanceBy = { x: 1, y: 0 };
-        ac.modAdvancement = { x: 2, y: 0 };
-        ac.updateInterval = 0.5;
-        this.ecsManager.addComponent(entity, ac);
         this.ecsManager.addComponent(entity, new CollisionComponent());
         return entity;
     }
@@ -64,6 +59,20 @@ class Game {
         // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent(xPos, yPos));
+        let cc = new CollisionComponent();
+        cc.isConstraint = true;
+        this.ecsManager.addComponent(entity, cc);
+        return entity;
+    }
+
+    createFloor(): Entity {
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
+        this.ecsManager.addComponent(entity, gc);
+        let pc = new PositionComponent(0.0, -1.0);
+        pc.scale.xy.x = 10.0;
+        this.ecsManager.addComponent(entity, pc);
         let cc = new CollisionComponent();
         cc.isConstraint = true;
         this.ecsManager.addComponent(entity, cc);
