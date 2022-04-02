@@ -15,19 +15,19 @@ class InputSystem extends System {
 
             if (this.input.keys["w"]) {
                 movComp.jumpRequested = true;
-                //movComp.accelerationDirection["y"] += 20.0;
+                movComp.accelerationDirection.xy.y += 1.0;
             }
 
             if (this.input.keys["s"]) {
-                movComp.accelerationDirection["y"] += -1.0;
+                movComp.accelerationDirection.xy.y += -1.0;
             }
 
             if (this.input.keys["a"]) {
-                movComp.accelerationDirection["x"] += -1.0;
+                movComp.accelerationDirection.xy.x += -1.0;
             }
 
             if (this.input.keys["d"]) {
-                movComp.accelerationDirection["x"] += 1.0;
+                movComp.accelerationDirection.xy.x += 1.0;
             }
         });
     }

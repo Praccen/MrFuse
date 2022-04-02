@@ -3,9 +3,10 @@ class Game {
         this.rendering = rendering;
         this.ecsManager = ecsManager;
         this.input = new Input();
-        this.rendering.camera.setZoom(0.5);
+        this.rendering.camera.setZoom(0.2);
         this.testEntity = this.createQuadEntity();
         this.createOtherEntity();
+        this.createCollisionEntity(3.0, 0.0);
     }
     createQuadEntity() {
         let entity = this.ecsManager.createEntity();
@@ -22,6 +23,7 @@ class Game {
         ac.modAdvancement = { x: 2, y: 0 };
         ac.updateInterval = 0.5;
         this.ecsManager.addComponent(entity, ac);
+        this.ecsManager.addComponent(entity, new CollisionComponent());
         return entity;
     }
     createOtherEntity() {
@@ -36,6 +38,17 @@ class Game {
         ac.modAdvancement = { x: 2, y: 0 };
         ac.updateInterval = 0.5;
         this.ecsManager.addComponent(entity, ac);
+        return entity;
+    }
+    createCollisionEntity(xPos, yPos) {
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.rendering.getNewQuad());
+        // gc.quad.texture.loadFromFile("https://i.pinimg.com/originals/85/71/d3/8571d3a91bce3b276c2fc90d983e19ec.jpg");
+        this.ecsManager.addComponent(entity, gc);
+        this.ecsManager.addComponent(entity, new PositionComponent(xPos, yPos));
+        let cc = new CollisionComponent();
+        cc.isConstraint = true;
+        this.ecsManager.addComponent(entity, cc);
         return entity;
     }
     update(dt) {

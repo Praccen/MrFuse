@@ -1,11 +1,12 @@
 var ComponentTypeEnum;
 (function (ComponentTypeEnum) {
     ComponentTypeEnum[ComponentTypeEnum["ANIMATION"] = 0] = "ANIMATION";
-    ComponentTypeEnum[ComponentTypeEnum["GRAPHICS"] = 1] = "GRAPHICS";
-    ComponentTypeEnum[ComponentTypeEnum["INPUT"] = 2] = "INPUT";
-    ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 3] = "MOVEMENT";
-    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 4] = "POSITION";
-    ComponentTypeEnum[ComponentTypeEnum["CAMERAFOCUS"] = 5] = "CAMERAFOCUS";
+    ComponentTypeEnum[ComponentTypeEnum["COLLISION"] = 1] = "COLLISION";
+    ComponentTypeEnum[ComponentTypeEnum["GRAPHICS"] = 2] = "GRAPHICS";
+    ComponentTypeEnum[ComponentTypeEnum["INPUT"] = 3] = "INPUT";
+    ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 4] = "MOVEMENT";
+    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 5] = "POSITION";
+    ComponentTypeEnum[ComponentTypeEnum["CAMERAFOCUS"] = 6] = "CAMERAFOCUS";
 })(ComponentTypeEnum || (ComponentTypeEnum = {}));
 class Component {
     constructor(type) {

@@ -13,43 +13,30 @@ class MovementSystem extends System {
             );
 
             // Do movement calculations and set positions accordingly
-            Object.keys(posComp.position).forEach((coord) => {
-                movComp.velocity[coord] +=
-                    movComp.accelerationDirection[coord] * dt;
+            movComp.velocity.xy.add(
+                new Vec2(movComp.accelerationDirection.xy.x * movComp.maxAcceleration.xy.x,
+                    movComp.accelerationDirection.xy.y * movComp.maxAcceleration.xy.y
+                ).multiply(dt));
+            movComp.velocity.xy.add(new Vec2(movComp.constantAcceleration.xy.x, movComp.constantAcceleration.xy.y).multiply(dt));
+            if (movComp.jumpRequested && movComp.jumpAllowed) {
+                movComp.velocity.xy.y = movComp.jumpPower;
+                movComp.jumpAllowed = false;
+            }
 
-                movComp.velocity[coord] +=
-                    movComp.constantAcceleration[coord] * dt;
+            movComp.velocity.xy.min(movComp.maxVelocity.xy);
+            movComp.velocity.xy.max(movComp.minVelocity.xy);
 
-                movComp.velocity[coord] = Math.min(
-                    movComp.velocity[coord],
-                    movComp.maxVelocity[coord]
-                );
-                movComp.velocity[coord] = Math.max(
-                    movComp.velocity[coord],
-                    movComp.minVelocity[coord]
-                );
+            posComp.position.xy.add(new Vec2(movComp.velocity.xy.x, movComp.velocity.xy.y).multiply(dt));
 
-                if (
-                    movComp.jumpRequested &&
-                    movComp.jumpAllowed &&
-                    coord == "y"
-                ) {
-                    movComp.velocity.y = movComp.jumpPower;
-                    movComp.jumpAllowed = false;
-                }
-
-                posComp.position[coord] += movComp.velocity[coord] * dt;
-
-                movComp.accelerationDirection[coord] = 0.0;
-            });
+            movComp.accelerationDirection.xy.multiply(0.0);
 
             //temporary reset jumpAllowed here
-            if (posComp.position.y <= 0.0) {
+            if (posComp.position.xy.y <= 0.0) {
                 movComp.jumpAllowed = true;
             }
 
             movComp.jumpRequested = false;
-            console.log(movComp.velocity);
+            // console.log(movComp.velocity);
         }
     }
 }

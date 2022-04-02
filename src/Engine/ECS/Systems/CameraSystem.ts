@@ -13,8 +13,8 @@ class CameraSystem extends System {
       );
 
       camComp.camera.setPosition(
-        posComp.position.x + camComp.offset.x,
-        posComp.position.y + camComp.offset.y
+        posComp.position.xy.x + camComp.offset.x,
+        posComp.position.xy.y + camComp.offset.y
       );
     }
   }

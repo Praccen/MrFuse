@@ -22,6 +22,7 @@ class ECSManager {
 
     initializeSystems() {
         this.systems.set("ANIMATION", new AnimationSystem());
+        this.systems.set("COLLISION", new CollisionSystem());
         this.systems.set("INPUT", new InputSystem());
         this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("CAMERA", new CameraSystem());
@@ -40,8 +41,9 @@ class ECSManager {
 
         this.systems.get("INPUT").update(dt);
         this.systems.get("MOVEMENT").update(dt);
-        this.systems.get("CAMERA").update(dt);
+        this.systems.get("COLLISION").update(dt);
         this.systems.get("GRAPHICS").update(dt);
+        this.systems.get("CAMERA").update(dt);
     }
 
     updateRenderingSystems(dt: number) {
@@ -88,7 +90,7 @@ class ECSManager {
         }
 
         // Empty queue
-        this.entityAdditionQueue.splice(0, this.entityAdditionQueue.length);
+        this.entityAdditionQueue.length = 0;
     }
 
     private addQueuedComponents()
@@ -107,7 +109,7 @@ class ECSManager {
         }
         
         // Empty queue
-        this.componentAdditionQueue.splice(0, this.componentAdditionQueue.length);
+        this.componentAdditionQueue.length = 0;
     }
 
     private removeEntitiesMarkedForDeletion()
@@ -127,7 +129,7 @@ class ECSManager {
         }
 
         // Empty queue
-        this.entityDeletionQueue.splice(0, this.entityDeletionQueue.length);
+        this.entityDeletionQueue.length = 0;
     }
 
     private removeComponents()
@@ -143,7 +145,7 @@ class ECSManager {
         }
 
         // Empty queue
-        this.componentRemovalQueue.splice(0, this.componentRemovalQueue.length);
+        this.componentRemovalQueue.length = 0;
     }
 
 
