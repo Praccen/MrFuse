@@ -31,7 +31,7 @@ class BombSystem extends System {
             })
 
             let animComp = <AnimationComponent> entity.getComponent(ComponentTypeEnum.ANIMATION);
-            let bombStage = Math.max(Math.min(Math.floor((b.timer / b.maxTime) * 2.0), 2.0), 0.0); 
+            let bombStage = Math.max(Math.min(Math.floor((b.timer / b.maxTime) * 3.0), 2.0), 0.0); 
             animComp.startingTile.y = bombStage + 1;
 
             if(b.timer < 0.0) {

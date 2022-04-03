@@ -13,7 +13,7 @@ class CollisionSystem extends System {
             let tempMatrix = new Matrix4(null);
             posComp.calculateMatrix(tempMatrix);
             colComp.shape.setTransformMatrix(tempMatrix);
-            colComp.currentCollisionEntities.length = 0;
+            colComp.currentCollisionEntities.clear(); 
         }
 
         for (let e of this.entities) {
@@ -89,11 +89,9 @@ class CollisionSystem extends System {
                             c.shape.setTransformMatrix(finalMatrix);
                         }
                     }
-                    c.currentCollisionEntities.push(e2); // Save collision
-                    //add to constraint entity that it has been hit, it wont check it by itself
-                    if (c2.isConstraint) {
-                        c2.currentCollisionEntities.push(e);
-                    }
+                    c.currentCollisionEntities.add(e2); // Save collision
+                    c2.currentCollisionEntities.add(e); // Add to other entity that it has been hit
+                    
 
                     //set drag to 'ground-drag'
                     m.drag = c2.dragFactor;

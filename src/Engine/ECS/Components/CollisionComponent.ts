@@ -1,6 +1,6 @@
 class CollisionComponent extends Component {
     shape: Shape;
-    currentCollisionEntities: Array<Entity>;
+    currentCollisionEntities: Set<Entity>;
     isConstraint: boolean;
     effectMovement: boolean;
 	allowedClimbing: number;
@@ -10,7 +10,7 @@ class CollisionComponent extends Component {
     constructor(dragFactor: number = 5.0) {
         super(ComponentTypeEnum.COLLISION);
 
-        this.currentCollisionEntities = new Array<Entity>();
+        this.currentCollisionEntities = new Set<Entity>();
         this.isConstraint = false;
         this.effectMovement = true;
         this.allowedClimbing = 0.0;
