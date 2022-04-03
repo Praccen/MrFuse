@@ -153,7 +153,7 @@ float Bar(float pos,float bar){pos-=bar;return pos*pos<4.0?0.0:1.0;}
 void main() {
     vec2 resolution = vec2(textureSize(screenTexture, 0));
     vec2 pos=Warp(gl_FragCoord.xy/resolution.xy+vec2(-0.333,0.0));
-    hardScan=-12.0;
+    hardScan=-4.0;
     maskDark=maskLight=1.0;
     pos=Warp(gl_FragCoord.xy/resolution.xy);
     fragColor.rgb=Tri(pos)*Mask(gl_FragCoord.xy);

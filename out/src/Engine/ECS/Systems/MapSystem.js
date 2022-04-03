@@ -12,6 +12,11 @@ const section = {
     3: [2, 3, 5, 6],
     4: [4],
 };
+const textureDictionary = {
+    1: "Assets/Textures/Environment/Platform.png",
+    2: "Assets/Textures/Environment/Ground.png",
+    3: "Assets/Textures/Environment/CobbleBricks.png",
+};
 class MapSystem extends System {
     constructor(getCameraPos, manager) {
         super([ComponentTypeEnum.MAPTILE, ComponentTypeEnum.POSITION]);
@@ -79,14 +84,8 @@ class MapSystem extends System {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
         let pc = new PositionComponent(x, y);
-        if (type == 1) {
-            gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
-        }
-        else if (type == 2) {
-            gc.quad.texture.loadFromFile("Assets/Textures/Environment/Ground.png");
-        }
-        else if (type == 3) {
-            gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
+        gc.quad.texture.loadFromFile(textureDictionary[type]);
+        if (type == 3) {
             pc.scale.xy.y = 0.5;
         }
         this.ecsManager.addComponent(entity, gc);

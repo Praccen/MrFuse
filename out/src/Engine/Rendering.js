@@ -24,6 +24,11 @@ class Rendering {
         this.gl.disable(this.gl.CULL_FACE);
         this.gl.lineWidth(3.0); // Sets line width of things like wireframe and draw lines
     }
+    reportCanvasResize(x, y) {
+        this.crtFramebuffer.setProportions(x, y);
+        this.screenFramebuffer.setProportions(x, y);
+        console.log("X: " + x + " px " + "Y: " + y + " px");
+    }
     getNewQuad() {
         const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, new Texture(this.gl, 0)));
         return this.quads[length - 1];

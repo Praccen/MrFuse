@@ -14,7 +14,7 @@ class Game {
         this.ecsManager = ecsManager;
 
         this.rendering.camera.setZoom(0.2);
-        this.rendering.useCrt = false;
+        this.rendering.useCrt = true;
 
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
@@ -76,7 +76,7 @@ class Game {
         cc.bounceFactor = 1.0;
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(3, 4.01); // 3.01 to avoid bomb above in sprite map being slightly visible
+        ac.spriteMap.setNrOfSprites(3, 4.01); // 4.01 to avoid bomb above in sprite map being slightly visible
         ac.startingTile = {x: 0, y: 1};
         ac.advanceBy = {x: 1.0, y: 0.0};
         ac.modAdvancement = {x: 3.0, y: 1.0};

@@ -15,7 +15,7 @@ function initWebGL() {
     }
     return gl;
 }
-function resize(gl) {
+function resize(gl, rendering) {
     // Get the dimensions of the viewport
     let viewport = {
         width: window.innerWidth,
@@ -39,7 +39,8 @@ function resize(gl) {
     // Resize game
     gl.canvas.style.width = newGameWidth + "px";
     gl.canvas.style.height = newGameHeight + "px";
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    //gl.viewport(newGameX, newGameY, newGameWidth, newGameHeight);
+    // rendering.reportCanvasResize(newGameWidth, newGameHeight);
 }
 /* main */
 window.onload = () => {
@@ -96,7 +97,7 @@ window.onload = () => {
         }
     }
     window.addEventListener("resize", function () {
-        resize(gl);
+        resize(gl, rendering);
     });
     function waitForTextureLoading() {
         if (texturesRequestedVsLoaded.loaded < texturesRequestedVsLoaded.req) {
@@ -104,7 +105,7 @@ window.onload = () => {
         }
     }
     console.log("Everything is ready.");
-    resize(gl);
+    resize(gl, rendering);
     requestAnimationFrame(waitForTextureLoading);
     requestAnimationFrame(gameLoop);
 };

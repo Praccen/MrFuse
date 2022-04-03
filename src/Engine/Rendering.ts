@@ -56,6 +56,12 @@ class Rendering {
 		this.gl.lineWidth(3.0); // Sets line width of things like wireframe and draw lines
 	}
 
+    reportCanvasResize(x: number, y: number) {
+        this.crtFramebuffer.setProportions(x, y);
+        this.screenFramebuffer.setProportions(x, y);
+        console.log("X: " + x + " px " + "Y: " + y + " px");
+    }
+
 	getNewQuad(): Quad {
 		const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, new Texture(this.gl, 0)));
 		return this.quads[length-1];
@@ -89,7 +95,7 @@ class Rendering {
         if (this.useCrt) {
             // Crt effect
             this.screenFramebuffer.bind(this.gl.DRAW_FRAMEBUFFER); // Set screen framebuffer as output
-            this.gl.clear(this.gl.COLOR_BUFFER_BIT);    
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT);
             this.crtShaderProgram.use();
             this.crtQuad.draw();
 

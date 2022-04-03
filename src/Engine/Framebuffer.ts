@@ -40,6 +40,10 @@ class Framebuffer {
         this.width = width;
         this.height = height;
         this.texture.setTextureData(null, this.width, this.height);
+        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.fbo);
+        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, this.rbo);
+        this.gl.renderbufferStorage(this.gl.RENDERBUFFER, this.gl.DEPTH24_STENCIL8, width, height);
+        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
     }
 
     bind(target: number) {
