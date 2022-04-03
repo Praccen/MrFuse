@@ -12,10 +12,10 @@ class Game {
         this.rendering.useCrt = false;
 
         this.playerEntity = this.createPlayerEntity();
-        this.createCollisionEntity(3.5, 0.0);
-        this.createCollisionEntity(-4.0, 0.0);
-        this.createCollisionEntity(-2.0, 2.0);
-        this.createFloor();
+        // this.createCollisionEntity(3.5, 0.0);
+        // this.createCollisionEntity(-4.0, 0.0);
+        // this.createCollisionEntity(-2.0, 2.0);
+        // this.createFloor();
         this.createMobile();
     }
 
