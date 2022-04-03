@@ -6,9 +6,6 @@ class Game {
     private playerEntity: Entity;
     private bombEntity: Entity;
 
-    private bombStage: number;
-    private secondsPerBombStage: number;
-
 
     constructor(gl: WebGL2RenderingContext, rendering: Rendering, ecsManager: ECSManager) {
         this.gl = gl;
@@ -20,9 +17,6 @@ class Game {
 
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
-
-        this.bombStage = 3.0;
-        this.secondsPerBombStage = 3.0;
     }
 
     createPlayerEntity(): Entity {
@@ -79,7 +73,7 @@ class Game {
         cc.bounce = true;
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(3, 3.01); // 3.01 to avoid bomb above in sprite map being slightly visible
+        ac.spriteMap.setNrOfSprites(3, 4.01); // 3.01 to avoid bomb above in sprite map being slightly visible
         ac.startingTile = {x: 0, y: 1};
         ac.advanceBy = {x: 1.0, y: 0.0};
         ac.modAdvancement = {x: 3.0, y: 1.0};
@@ -89,15 +83,6 @@ class Game {
         return entity;
     }
     update(dt: number) {
-        this.bombStage -= dt / this.secondsPerBombStage;
-
-        let animComp = <AnimationComponent> this.bombEntity.getComponent(ComponentTypeEnum.ANIMATION);
-        if (animComp) {
-            animComp.startingTile.y = Math.max(Math.min(Math.floor(this.bombStage), 2), 0);
-        }
-
-        if (this.bombStage < 0.0) {
-            this.bombStage = 3.0;
-        }
+        
     }
 }

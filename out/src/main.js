@@ -53,11 +53,21 @@ window.onload = () => {
     let minUpdateRate = 1.0 / 60.0;
     let updateTimer = 0.0;
     let updatesSinceRender = 0;
+    let fpsUpdateTimer = 0.0;
+    let frameCounter = 0;
     /* Gameloop */
     function gameLoop() {
         let now = Date.now();
         let dt = (now - (lastTick || now)) * 0.001;
         lastTick = now;
+        frameCounter++;
+        fpsUpdateTimer += dt;
+        if (fpsUpdateTimer > 0.5) {
+            let fps = frameCounter / fpsUpdateTimer;
+            fpsUpdateTimer -= 0.5;
+            frameCounter = 0;
+            // console.log(fps); // Uncomment to log fps every half second
+        }
         // Constant update rate
         updateTimer += dt;
         updatesSinceRender = 0;
