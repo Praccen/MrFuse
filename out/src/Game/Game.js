@@ -15,7 +15,7 @@ class Game {
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Character/Character.png");
         this.ecsManager.addComponent(entity, gc);
-        let pc = new PositionComponent();
+        let pc = new PositionComponent(2.0);
         pc.scale.xy = new Vec2(1.0, 1.5);
         this.ecsManager.addComponent(entity, pc);
         this.ecsManager.addComponent(entity, new InputComponent());
@@ -42,7 +42,7 @@ class Game {
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png");
         this.ecsManager.addComponent(entity, gc);
-        let pc = new PositionComponent(0.0, 4.0);
+        let pc = new PositionComponent(2.0, 4.0);
         this.ecsManager.addComponent(entity, pc);
         let mc = new MovementComponent();
         mc.defaultDrag = 0.4;
@@ -54,6 +54,7 @@ class Game {
         cc.shape.addVertex(new Vec2(0.4, -0.5));
         cc.shape.addVertex(new Vec2(0.4, 0.4));
         cc.bounceFactor = 1.0;
+        cc.effectMovement = true;
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
         ac.spriteMap.setNrOfSprites(3, 4.01); // 4.01 to avoid bomb above in sprite map being slightly visible

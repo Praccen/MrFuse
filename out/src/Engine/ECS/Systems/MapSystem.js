@@ -1,11 +1,14 @@
 const mapSrc = `
-4000000000004
-4000003300004
-4000030000004
-4000000000004
-4300000033004
-4003000000004
-2222222222222`;
+0
+0
+000002222222
+050000000022
+033300000000
+000044500000
+000000000000
+000000000333
+000000330330
+000003333330`;
 const section = {
     1: [-2, 9],
     2: [-1, 0, 7, 8],
@@ -13,10 +16,11 @@ const section = {
     4: [4],
 };
 const textureDictionary = {
-    1: "Assets/Textures/Environment/Platform.png",
-    2: "Assets/Textures/Environment/Ground.png",
+    1: "Assets/Textures/Environment/Ground.png",
+    2: "Assets/Textures/Environment/CobbleBricks.png",
     3: "Assets/Textures/Environment/Platform.png",
-    4: "Assets/Textures/Environment/CobbleBricks.png",
+    4: "Assets/Textures/Environment/Platform.png",
+    5: "Assets/Textures/Environment/Platform.png",
 };
 class MapSystem extends System {
     constructor(getCameraPos, manager) {
@@ -31,64 +35,91 @@ class MapSystem extends System {
         this.populateMap();
     }
     update() {
-        const camPos = this.ecsManager.camera.getPosition();
-        //if player has gotten this far up, its time to spawn a new row
-        const camTopDistance = this.mapHeight - camPos.y;
-        if (camTopDistance < 3.0) {
-            this.mapHeight++;
-            //walls
-            this.createTile(-2, this.mapHeight, 4);
-            this.createTile(this.mapWidth, this.mapHeight, 4);
-            if (this.nextSection == 1) {
-                let rand = Math.floor(Math.random() * section['3'].length);
-                this.createTile(section['3'][rand], this.mapHeight, 3);
-                this.createTile(section['3'][rand] + 1, this.mapHeight, 3);
-                this.nextSection = 4;
-            }
-            else if (this.nextSection == 2) {
-                let rand = Math.floor(Math.random() * section['4'].length);
-                this.createTile(section['4'][rand], this.mapHeight, 3);
-                this.createTile(section['4'][rand] + 1, this.mapHeight, 3);
-                this.nextSection = 3;
-            }
-            else if (this.nextSection == 3) {
-                let rand = Math.floor(Math.random() * section['1'].length);
-                this.createTile(section['1'][rand], this.mapHeight, 3);
-                this.nextSection = 1;
-            }
-            else if (this.nextSection == 4) {
-                const rand = Math.floor(Math.random() * section['2'].length);
-                this.createTile(section['2'][rand], this.mapHeight, 3);
-                this.createTile(section['2'][rand] + 1, this.mapHeight, 3);
-                this.nextSection = 2;
-            }
-        }
+        // const camPos = this.ecsManager.camera.getPosition();
+        // //if player has gotten this far up, its time to spawn a new row
+        // const camTopDistance = this.mapHeight - camPos.y;
+        // if(camTopDistance < 3.0) {
+        //     this.mapHeight++;
+        //     //walls
+        //     this.createTile(-2, this.mapHeight, 1.0, 1.0, 4);
+        //     this.createTile(this.mapWidth, this.mapHeight, 1.0, 1.0, 4);
+        //     if(this.nextSection == 1) {
+        //         let rand = Math.floor(Math.random()*section['3'].length);
+        //         this.createTile(section['3'][rand], this.mapHeight, 1.0, 1.0, 3);
+        //         this.createTile(section['3'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
+        //         this.nextSection = 4;
+        //     } 
+        //     else if(this.nextSection == 2) {
+        //         let rand = Math.floor(Math.random()*section['4'].length);
+        //         this.createTile(section['4'][rand], this.mapHeight, 1.0, 1.0, 3);
+        //         this.createTile(section['4'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
+        //         this.nextSection = 3;
+        //     }
+        //     else if(this.nextSection == 3) {
+        //         let rand = Math.floor(Math.random()*section['1'].length);
+        //         this.createTile(section['1'][rand], this.mapHeight, 1.0, 1.0, 3);
+        //         this.nextSection = 1;
+        //     }
+        //     else if(this.nextSection == 4){
+        //         const rand = Math.floor(Math.random()*section['2'].length);
+        //         this.createTile(section['2'][rand], this.mapHeight, 1.0, 1.0, 3);
+        //         this.createTile(section['2'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
+        //         this.nextSection = 2;
+        //     }
+        // }
     }
     populateMap() {
-        let y = -1;
-        let x = -3;
+        let y = 0;
+        let x = 0;
+        // Find width and height
         for (let i = mapSrc.length - 1; i >= 0; i--) {
             x++;
             if (mapSrc.charAt(i) == '\n') {
-                this.mapWidth = x - 1;
+                this.mapWidth = Math.max(x - 1, this.mapWidth);
                 y++;
-                x = -3;
-            }
-            else if (mapSrc.charAt(i) != '0') {
-                this.createTile(x, y, parseInt(mapSrc.charAt(i), 10));
+                x = 0;
             }
         }
-        this.mapHeight = y - 1;
+        this.mapHeight = y;
+        // Actually place tiles
+        y = this.mapHeight;
+        x = 0;
+        for (let i = 0; i < mapSrc.length; i++) {
+            x++;
+            if (mapSrc.charAt(i) == '\n') {
+                y--;
+                x = 0;
+            }
+            else if (mapSrc.charAt(i) != '0' && mapSrc.charAt(i) != ' ') {
+                this.createTile(x, y, 1.0, 1.0, parseInt(mapSrc.charAt(i), 10));
+            }
+        }
+        // Create floor 
+        this.createTile(this.mapWidth / 2.0 + 0.5, -1.0, this.mapWidth + 2, 1.0, 1);
+        // And walls
+        this.createTile(0.0, this.mapHeight / 2 - 0.5, 1.0, this.mapHeight, 2);
+        this.createTile(this.mapWidth + 1, this.mapHeight / 2.0 - 0.5, 1.0, this.mapHeight, 2);
     }
-    createTile(x, y, type) {
+    createTile(x, y, width, height, type) {
         this.nrTiles++;
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
         let pc = new PositionComponent(x, y);
         gc.quad.texture.loadFromFile(textureDictionary[type]);
-        if (type == 3) {
-            pc.scale.xy.y = 0.5;
-            gc.quad.textureMatrix.setScale(1.0, 0.5, 1.0);
+        pc.scale.xy.x = width;
+        pc.scale.xy.y = height;
+        if (type == 4) {
+            pc.position.xy.y += 0.25;
+            pc.scale.xy.y *= 0.5;
+            gc.quad.textureMatrix.setScale(width, height * 0.5, 1.0);
+        }
+        else if (type == 5) {
+            pc.position.xy.y -= 0.25;
+            pc.scale.xy.y *= 0.5;
+            gc.quad.textureMatrix.setScale(width, height * 0.5, 1.0);
+        }
+        else {
+            gc.quad.textureMatrix.setScale(width, height, 1.0);
         }
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, pc);
