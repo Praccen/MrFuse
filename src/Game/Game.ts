@@ -91,8 +91,6 @@ class Game {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png")
-        gc.quad.texture.setTexParameters(this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
-        gc.quad.texture.setTexParameters(this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, 4.0);
         this.ecsManager.addComponent(entity, pc);
@@ -108,7 +106,7 @@ class Game {
         cc.bounce = true;
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
-        ac.spriteMap.setNrOfSprites(3, 3);
+        ac.spriteMap.setNrOfSprites(3, 3.01); // 3.01 to avoid bomb above in sprite map being slightly visible
         ac.startingTile = {x: 0, y: 1};
         ac.advanceBy = {x: 1.0, y: 0.0};
         ac.modAdvancement = {x: 3.0, y: 1.0};
