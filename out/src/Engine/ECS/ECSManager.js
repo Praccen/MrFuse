@@ -20,6 +20,7 @@ class ECSManager {
         this.systems.set("MAP", new MapSystem(this.camera.getPosition, this));
         this.systems.set("GRAPHICS", new GraphicsSystem());
         this.systems.set("PLAYER", new PlayerSystem());
+        this.systems.set("BOMB", new BombSystem());
     }
     update(dt) {
         // Add new entities
@@ -35,6 +36,7 @@ class ECSManager {
         this.systems.get("CAMERA").update(dt);
         this.systems.get("MAP").update(dt);
         this.systems.get("PLAYER").update(dt);
+        this.systems.get("BOMB").update(dt);
         this.systems.get("GRAPHICS").update(dt);
         this.systems.get("CAMERA").update(dt);
     }

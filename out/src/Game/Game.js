@@ -9,7 +9,7 @@ class Game {
         // this.createCollisionEntity(-4.0, 0.0);
         // this.createCollisionEntity(-2.0, 2.0);
         // this.createFloor();
-        this.createMobile();
+        this.createBomb();
     }
     createPlayerEntity() {
         let entity = this.ecsManager.createEntity();
@@ -64,7 +64,7 @@ class Game {
         this.ecsManager.addComponent(entity, cc);
         return entity;
     }
-    createMobile() {
+    createBomb() {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png");
@@ -89,6 +89,7 @@ class Game {
         ac.modAdvancement = { x: 3.0, y: 1.0 };
         ac.updateInterval = 0.05;
         this.ecsManager.addComponent(entity, ac);
+        this.ecsManager.addComponent(entity, new BombComponent());
         return entity;
     }
     update(dt) {

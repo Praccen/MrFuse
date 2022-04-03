@@ -6,9 +6,10 @@ var ComponentTypeEnum;
     ComponentTypeEnum[ComponentTypeEnum["INPUT"] = 3] = "INPUT";
     ComponentTypeEnum[ComponentTypeEnum["MOVEMENT"] = 4] = "MOVEMENT";
     ComponentTypeEnum[ComponentTypeEnum["PLAYER"] = 5] = "PLAYER";
-    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 6] = "POSITION";
-    ComponentTypeEnum[ComponentTypeEnum["MAPTILE"] = 7] = "MAPTILE";
-    ComponentTypeEnum[ComponentTypeEnum["CAMERAFOCUS"] = 8] = "CAMERAFOCUS";
+    ComponentTypeEnum[ComponentTypeEnum["BOMB"] = 6] = "BOMB";
+    ComponentTypeEnum[ComponentTypeEnum["POSITION"] = 7] = "POSITION";
+    ComponentTypeEnum[ComponentTypeEnum["MAPTILE"] = 8] = "MAPTILE";
+    ComponentTypeEnum[ComponentTypeEnum["CAMERAFOCUS"] = 9] = "CAMERAFOCUS";
 })(ComponentTypeEnum || (ComponentTypeEnum = {}));
 class Component {
     constructor(type) {
