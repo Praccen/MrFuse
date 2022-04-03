@@ -91,6 +91,9 @@ window.onload = () => {
         ecsManager.updateRenderingSystems(dt);
         rendering.draw();
         requestAnimationFrame(gameLoop);
+        if (game.gameOver) {
+            console.log("Game Over!");
+        }
     }
     window.addEventListener("resize", function () {
         resize(gl);

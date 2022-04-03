@@ -13,10 +13,9 @@ class BombSystem extends System {
 
             b.timer -= dt;
 
-            if(b.exploded) {
-                if (b.timer < -1.0) {
-                    // Delete entity
-                    this.ecsManager.removeEntity(entity.id);
+            if(b.exploding || b.exploded) {
+                if (b.timer < -b.explosionTime) {
+                    b.exploded = true;
                 }    
                 continue;
             }
@@ -49,7 +48,7 @@ class BombSystem extends System {
             if(b.timer < 0.0) {
                 console.log("EXPLODE!");
                 animComp.startingTile.y = 0.0;
-                b.exploded = true;
+                b.exploding= true;
                 c.bounceFactor = 0.0;
 
                 let movComp = <MovementComponent> entity.getComponent(ComponentTypeEnum.MOVEMENT);

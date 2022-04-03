@@ -7,6 +7,7 @@ class Game {
         this.rendering.useCrt = false;
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
+        this.gameOver = false;
     }
     createPlayerEntity() {
         let entity = this.ecsManager.createEntity();
@@ -65,6 +66,9 @@ class Game {
         return entity;
     }
     update(dt) {
+        const bc = this.bombEntity.getComponent(ComponentTypeEnum.BOMB);
+        if (bc)
+            this.gameOver = bc.exploded;
     }
 }
 //# sourceMappingURL=Game.js.map

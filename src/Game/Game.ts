@@ -6,6 +6,7 @@ class Game {
     private playerEntity: Entity;
     private bombEntity: Entity;
 
+    gameOver: boolean;
 
     constructor(gl: WebGL2RenderingContext, rendering: Rendering, ecsManager: ECSManager) {
         this.gl = gl;
@@ -17,6 +18,8 @@ class Game {
 
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
+
+        this.gameOver = false;
     }
 
     createPlayerEntity(): Entity {
@@ -83,6 +86,7 @@ class Game {
         return entity;
     }
     update(dt: number) {
-        
+        const bc = <BombComponent>this.bombEntity.getComponent(ComponentTypeEnum.BOMB);
+        if(bc) this.gameOver = bc.exploded;
     }
 }

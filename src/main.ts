@@ -116,6 +116,10 @@ window.onload = () => {
 		rendering.draw();
 		
 		requestAnimationFrame(gameLoop);
+
+        if(game.gameOver){
+            console.log("Game Over!");
+        }
 	}
 
     window.addEventListener("resize", function () {
