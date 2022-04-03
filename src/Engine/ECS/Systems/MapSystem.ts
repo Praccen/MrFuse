@@ -1,10 +1,10 @@
 const mapSrc = `
-1000000000001
-1000003300001
-1000030000001
-1000000000001
-1300000033001
-1003000000001
+4000000000004
+4000003300004
+4000030000004
+4000000000004
+4300000033004
+4003000000004
 2222222222222`;
 
 const section = {
@@ -17,7 +17,8 @@ const section = {
 const textureDictionary = {
     1: "Assets/Textures/Environment/Platform.png",
     2: "Assets/Textures/Environment/Ground.png",
-    3: "Assets/Textures/Environment/CobbleBricks.png",
+    3: "Assets/Textures/Environment/Platform.png",
+    4: "Assets/Textures/Environment/CobbleBricks.png",
 }
 
 class MapSystem extends System {
@@ -54,8 +55,8 @@ class MapSystem extends System {
         if(camTopDistance < 3.0) {
             this.mapHeight++;
             //walls
-            this.createTile(-2, this.mapHeight, 1);
-            this.createTile(this.mapWidth, this.mapHeight, 1);
+            this.createTile(-2, this.mapHeight, 4);
+            this.createTile(this.mapWidth, this.mapHeight, 4);
 
 
             if(this.nextSection == 1) {
@@ -112,6 +113,7 @@ class MapSystem extends System {
         gc.quad.texture.loadFromFile(textureDictionary[type]);
         if(type == 3) {
             pc.scale.xy.y = 0.5;
+            gc.quad.textureMatrix.setScale(1.0, 0.5, 1.0);
         }
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, pc);

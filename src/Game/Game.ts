@@ -14,7 +14,7 @@ class Game {
         this.ecsManager = ecsManager;
 
         this.rendering.camera.setZoom(0.2);
-        this.rendering.useCrt = true;
+        this.rendering.useCrt = false;
 
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
