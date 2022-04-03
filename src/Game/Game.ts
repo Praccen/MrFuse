@@ -35,9 +35,10 @@ class Game {
         this.ecsManager.addComponent(entity, pc);
         this.ecsManager.addComponent(entity, new InputComponent());
         this.ecsManager.addComponent(entity, new MovementComponent());
+        let cf = new CameraFocusComponent(this.rendering.camera);
+        cf.offset.y = 0.7;
         this.ecsManager.addComponent(
-            entity,
-            new CameraFocusComponent(this.rendering.camera)
+            entity, cf
         );
         let cc = new CollisionComponent();
         cc.shape.clearVertices();

@@ -37,8 +37,8 @@ class Rendering {
     }
     printText() {
         const texture = new Texture(this.gl, 0);
-        texture.loadFromFile("Assets/Textures/Items/Bomb.png");
-        this.textQuad = new TextQuad(this.gl, this.screenQuadShaderProgram, texture);
+        texture.loadFromFile("Assets/Textures/Text/GameOverText.png");
+        this.textQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
     }
     clearText() {
         this.textQuad = null;

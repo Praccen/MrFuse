@@ -121,7 +121,8 @@ class MapSystem extends System {
         }
 
         // Create floor 
-        this.createTile(this.mapWidth / 2.0 + 0.5, -1.0, this.mapWidth + 2, 1.0, 1);
+        const floorWitdth = this.mapWidth + 20.0 
+        this.createTile(this.mapWidth / 2.0 + 0.5, -1.0, floorWitdth + 2, 1.0, 1);
         
         // And walls
         this.createTile(0.0, this.mapHeight / 2 - 0.5, 1.0, this.mapHeight, 2);
