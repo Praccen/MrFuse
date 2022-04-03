@@ -25,6 +25,9 @@ class ScreenQuad extends GraphicsObject {
         this.setIndexData(this.indices);
 
         this.texture = texture;
+        
+        this.texture.setTexParameters(this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+        this.texture.setTexParameters(this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
     }
 
     draw() {
