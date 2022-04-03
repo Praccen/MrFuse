@@ -60,33 +60,6 @@ class Game {
         return entity;
     }
 
-    createCollisionEntity(xPos: number, yPos: number): Entity {
-        let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
-        this.ecsManager.addComponent(entity, gc);
-        this.ecsManager.addComponent(entity, new PositionComponent(xPos, yPos));
-        let cc = new CollisionComponent();
-        cc.isConstraint = true;
-        this.ecsManager.addComponent(entity, cc);
-        return entity;
-    }
-
-    createFloor(): Entity {
-        let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Ground.png");
-        gc.quad.textureMatrix.setScale(10.0, 1.0, 1.0);
-        this.ecsManager.addComponent(entity, gc);
-        let pc = new PositionComponent(0.0, -1.0);
-        pc.scale.xy.x = 10.0;
-        this.ecsManager.addComponent(entity, pc);
-        let cc = new CollisionComponent();
-        cc.isConstraint = true;
-        this.ecsManager.addComponent(entity, cc);
-        return entity;
-    }
-
     createBomb(): Entity {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
