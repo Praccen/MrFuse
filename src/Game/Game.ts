@@ -1,10 +1,17 @@
 class Game {
+    private gl: WebGL2RenderingContext;
     private rendering: Rendering;
     private ecsManager: ECSManager;
 
     private playerEntity: Entity;
+    private bombEntity: Entity;
 
-    constructor(rendering: Rendering, ecsManager: ECSManager) {
+    private bombStage: number;
+    private secondsPerBombStage: number;
+
+
+    constructor(gl: WebGL2RenderingContext, rendering: Rendering, ecsManager: ECSManager) {
+        this.gl = gl;
         this.rendering = rendering;
         this.ecsManager = ecsManager;
 
@@ -12,11 +19,10 @@ class Game {
         this.rendering.useCrt = false;
 
         this.playerEntity = this.createPlayerEntity();
-        // this.createCollisionEntity(3.5, 0.0);
-        // this.createCollisionEntity(-4.0, 0.0);
-        // this.createCollisionEntity(-2.0, 2.0);
-        // this.createFloor();
-        this.createBomb();
+        this.bombEntity = this.createBomb();
+
+        this.bombStage = 3.0;
+        this.secondsPerBombStage = 3.0;
     }
 
     createPlayerEntity(): Entity {
@@ -85,13 +91,15 @@ class Game {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
         gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png")
+        gc.quad.texture.setTexParameters(this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+        gc.quad.texture.setTexParameters(this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, 4.0);
         this.ecsManager.addComponent(entity, pc);
         let mc = new MovementComponent();
-        mc.defaultDrag = 0.1;
+        mc.defaultDrag = 0.4;
         this.ecsManager.addComponent(entity, mc);
-        let cc = new CollisionComponent(3.0);
+        let cc = new CollisionComponent(4.0);
         cc.shape.clearVertices();
         cc.shape.addVertex(new Vec2(-0.4, 0.4));
         cc.shape.addVertex(new Vec2(-0.4, -0.5));
@@ -110,6 +118,15 @@ class Game {
         return entity;
     }
     update(dt: number) {
+        this.bombStage -= dt / this.secondsPerBombStage;
 
+        let animComp = <AnimationComponent> this.bombEntity.getComponent(ComponentTypeEnum.ANIMATION);
+        if (animComp) {
+            animComp.startingTile.y = Math.max(Math.min(Math.floor(this.bombStage), 2), 0);
+        }
+
+        if (this.bombStage < 0.0) {
+            this.bombStage = 3.0;
+        }
     }
 }

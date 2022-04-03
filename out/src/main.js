@@ -47,7 +47,7 @@ window.onload = () => {
     let gl = initWebGL();
     const rendering = new Rendering(gl);
     const ecsManager = new ECSManager(rendering);
-    const game = new Game(rendering, ecsManager);
+    const game = new Game(gl, rendering, ecsManager);
     let lastTick = null;
     //Fixed update rate
     let minUpdateRate = 1.0 / 60.0;

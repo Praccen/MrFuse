@@ -60,7 +60,7 @@ window.onload = () => {
 
 	const rendering = new Rendering(gl);
 	const ecsManager = new ECSManager(rendering);
-	const game = new Game(rendering, ecsManager);
+	const game = new Game(gl, rendering, ecsManager);
 
 	let lastTick = null;
 
