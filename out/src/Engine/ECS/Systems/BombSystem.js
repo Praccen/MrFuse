@@ -10,13 +10,14 @@ class BombSystem extends System {
             if (b.exploding || b.exploded) {
                 if (b.timer < -b.explosionTime) {
                     b.exploded = true;
+                    this.ecsManager.removeComponent(entity, ComponentTypeEnum.GRAPHICS);
                 }
                 continue;
             }
             let c = entity.getComponent(ComponentTypeEnum.COLLISION);
             c.currentCollisionEntities.forEach((ce) => {
                 if (ce.hasComponent(ComponentTypeEnum.PLAYER)) {
-                    console.log("Time increased");
+                    // console.log("Time increased");
                     b.timer = b.timer + 1 < b.maxTime ? b.timer + 1 : b.maxTime;
                     // Recalculate bounce
                     let p = entity.getComponent(ComponentTypeEnum.POSITION);
@@ -35,7 +36,7 @@ class BombSystem extends System {
             let bombStage = Math.max(Math.min(Math.floor((b.timer / b.maxTime) * 3.0), 2.0), 0.0);
             animComp.startingTile.y = bombStage + 1;
             if (b.timer < 0.0) {
-                console.log("EXPLODE!");
+                // console.log("EXPLODE!");
                 animComp.startingTile.y = 0.0;
                 b.exploding = true;
                 c.bounceFactor = 0.0;

@@ -53,8 +53,8 @@ class ECSManager {
     removeEntity(entityID) {
         this.entityDeletionQueue.push(entityID);
     }
-    removeComponent(entity, component) {
-        this.componentRemovalQueue.push({ entity, component });
+    removeComponent(entity, componentType) {
+        this.componentRemovalQueue.push({ entity, componentType });
     }
     getEntity(entityID) {
         for (const entity of this.entities) {
@@ -110,7 +110,7 @@ class ECSManager {
     removeComponents() {
         for (const compEntityPair of this.componentRemovalQueue) {
             // Remove component from entity
-            compEntityPair.entity.removeComponent(compEntityPair.component.type);
+            compEntityPair.entity.removeComponent(compEntityPair.componentType, this.rendering);
             // Remove entity from system if it no longer lives up to the requirements of being in the system
             for (let system of this.systems) {
                 system[1].removeFaultyEntity(compEntityPair.entity.id);

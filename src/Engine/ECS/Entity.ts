@@ -20,9 +20,12 @@ class Entity {
         return (this.components.some(c => c.type == type));
     }
 
-    removeComponent(type: ComponentTypeEnum) {
+    removeComponent(type: ComponentTypeEnum, rendering: Rendering) {
         let index = this.components.findIndex(c => c.type == type);
         if (index != -1) {
+            if (type == ComponentTypeEnum.GRAPHICS) {
+                rendering.deleteQuad((<GraphicsComponent> this.components[index]).quad);
+            }
             this.components.splice(index, 1);
         }
     }

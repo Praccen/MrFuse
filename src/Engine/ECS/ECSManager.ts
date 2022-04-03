@@ -5,7 +5,7 @@ class ECSManager {
     private entityAdditionQueue: Array<Entity>;
     private entityDeletionQueue: Array<number>;
     private componentAdditionQueue: Array<{entity: Entity, component: Component}>;
-    private componentRemovalQueue: Array<{entity: Entity, component: Component}>;
+    private componentRemovalQueue: Array<{entity: Entity, componentType: ComponentTypeEnum}>;
     camera: Camera;
     rendering: Rendering;
 
@@ -20,7 +20,7 @@ class ECSManager {
         this.entityAdditionQueue = new Array<Entity>();
         this.entityDeletionQueue = new Array<number>();
         this.componentAdditionQueue = new Array<{entity: Entity, component: Component}>();
-        this.componentRemovalQueue = new Array<{entity: Entity, component: Component}>();
+        this.componentRemovalQueue = new Array<{entity: Entity, componentType: ComponentTypeEnum}>();
 
         this.initializeSystems();
     }
@@ -75,8 +75,8 @@ class ECSManager {
         this.entityDeletionQueue.push(entityID);
     }
 
-    removeComponent(entity: Entity, component: Component) {
-        this.componentRemovalQueue.push({ entity, component });
+    removeComponent(entity: Entity, componentType: ComponentTypeEnum) {
+        this.componentRemovalQueue.push({ entity, componentType });
     }
 
     getEntity(entityID: number): Entity {
@@ -148,7 +148,7 @@ class ECSManager {
     {
         for (const compEntityPair of this.componentRemovalQueue) {
             // Remove component from entity
-            compEntityPair.entity.removeComponent(compEntityPair.component.type);
+            compEntityPair.entity.removeComponent(compEntityPair.componentType, this.rendering);
 
             // Remove entity from system if it no longer lives up to the requirements of being in the system
             for (let system of this.systems) {

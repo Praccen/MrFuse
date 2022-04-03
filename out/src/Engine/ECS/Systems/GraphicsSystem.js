@@ -12,16 +12,6 @@ class GraphicsSystem extends System {
             }
         }
     }
-    removeFaultyEntity(entityId) {
-        const index = this.entities.findIndex(c => c.id == entityId);
-        if (index != -1) {
-            if (!this.entityHasCorrectComponents(this.entities[index])) {
-                let graphComp = this.entities[index].getComponent(ComponentTypeEnum.GRAPHICS);
-                this.rendering.deleteQuad(graphComp.quad);
-                this.entities.splice(index, 1);
-            }
-        }
-    }
     removeEntity(entityId) {
         const index = this.entities.findIndex(c => c.id == entityId);
         if (index != -1) {
