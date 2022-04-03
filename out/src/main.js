@@ -1,5 +1,10 @@
+// Globals
 let canvas = document.getElementById("gameCanvas");
 let input = new Input();
+let texturesRequestedVsLoaded = {
+    req: 0,
+    loaded: 0,
+};
 function initWebGL() {
     canvas.width = 1920;
     canvas.height = 1080;
@@ -40,26 +45,14 @@ function resize(gl) {
 window.onload = () => {
     "use strict";
     let gl = initWebGL();
-    let texturesRequestedVsLoaded = {
-        req: 0,
-        loaded: 0,
-    };
-    const rendering = new Rendering(gl, texturesRequestedVsLoaded);
+    const rendering = new Rendering(gl);
     const ecsManager = new ECSManager(rendering);
     const game = new Game(rendering, ecsManager);
-    window.addEventListener("resize", function () {
-        resize(gl);
-    });
     let lastTick = null;
     //Fixed update rate
     let minUpdateRate = 1.0 / 60.0;
     let updateTimer = 0.0;
     let updatesSinceRender = 0;
-    function waitForTextureLoading() {
-        if (texturesRequestedVsLoaded.loaded < texturesRequestedVsLoaded.req) {
-            requestAnimationFrame(waitForTextureLoading);
-        }
-    }
     /* Gameloop */
     function gameLoop() {
         let now = Date.now();
@@ -88,6 +81,14 @@ window.onload = () => {
         ecsManager.updateRenderingSystems(dt);
         rendering.draw();
         requestAnimationFrame(gameLoop);
+    }
+    window.addEventListener("resize", function () {
+        resize(gl);
+    });
+    function waitForTextureLoading() {
+        if (texturesRequestedVsLoaded.loaded < texturesRequestedVsLoaded.req) {
+            requestAnimationFrame(waitForTextureLoading);
+        }
     }
     console.log("Everything is ready.");
     resize(gl);

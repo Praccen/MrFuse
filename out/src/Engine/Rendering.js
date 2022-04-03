@@ -1,7 +1,6 @@
 class Rendering {
-    constructor(gl, texturesRequestedVsLoaded) {
+    constructor(gl) {
         this.gl = gl;
-        this.texturesRequestedVsLoaded = texturesRequestedVsLoaded;
         this.camera = new Camera(gl);
         this.useCrt = true;
         this.simpleShaderProgram = new SimpleShaderProgram(this.gl);

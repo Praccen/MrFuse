@@ -20,9 +20,8 @@ class Rendering {
 	private screenFramebuffer: Framebuffer;
 	private screenQuad: ScreenQuad;
 
-	constructor(gl: WebGL2RenderingContext, texturesRequestedVsLoaded: object) {
+	constructor(gl: WebGL2RenderingContext) {
 		this.gl = gl;
-        this.texturesRequestedVsLoaded = texturesRequestedVsLoaded;
 		this.camera = new Camera(gl);
 
         this.useCrt = true;

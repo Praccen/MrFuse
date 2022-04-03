@@ -68,11 +68,11 @@ class CollisionSystem extends System {
                                 let tempVec = new Vec2(normalizedIntersectionAxis.x, normalizedIntersectionAxis.y);
                                 m.velocity.xy.add(tempVec.multiply(-dotProd));
                             }
-                            if(c.bounce) {
-                                if(m2) {
+                            if (c.bounce) {
+                                if (m2) {
                                     const posDiff = new Vec2(p.position.xy.x, p.position.xy.y).subtract(p2.position.xy);
-                                    m.velocity.xy.x = m.velocity.xy.x + m2.velocity.xy.x + posDiff.x*10.0;
-                                    m.accelerationDirection.xy.x += m2.accelerationDirection.xy.x; 
+                                    m.velocity.xy.x = m.velocity.xy.x + m2.velocity.xy.x + posDiff.x * 10.0;
+                                    m.accelerationDirection.xy.x += m2.accelerationDirection.xy.x;
                                     m.velocity.xy.y = (5.0 + m2.velocity.xy.y) * posDiff.y;
                                 } else {
                                     m.velocity.xy.y = 5.0;

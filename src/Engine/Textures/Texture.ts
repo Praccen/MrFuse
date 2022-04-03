@@ -65,6 +65,7 @@ class Texture {
         image.crossOrigin = "";
         image.src = URL;
         let self = this;
+        texturesRequestedVsLoaded.req++;
         image.addEventListener('load', function() {
             // Now that the image has loaded copy it to the texture and save the width/height.
             self.width = image.width;
@@ -72,6 +73,7 @@ class Texture {
             self.gl.bindTexture(self.gl.TEXTURE_2D, self.texture);
             self.gl.texImage2D(self.gl.TEXTURE_2D, 0, self.gl.RGBA, self.gl.RGBA, self.gl.UNSIGNED_BYTE, image);
             self.gl.generateMipmap(self.gl.TEXTURE_2D);
+            texturesRequestedVsLoaded.loaded++;
         });
 
     }
