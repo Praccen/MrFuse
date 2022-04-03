@@ -28,6 +28,12 @@ class Rendering {
         const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, new Texture(this.gl, 0)));
         return this.quads[length - 1];
     }
+    deleteQuad(quad) {
+        let index = this.quads.findIndex(q => q == quad);
+        if (index != -1) {
+            this.quads.splice(index, 1);
+        }
+    }
     draw() {
         if (this.useCrt) {
             // Render scene to crt framebuffer

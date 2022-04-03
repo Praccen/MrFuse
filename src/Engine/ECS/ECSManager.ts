@@ -32,9 +32,9 @@ class ECSManager {
         this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("CAMERA", new CameraSystem());
         this.systems.set("MAP", new MapSystem(this.camera.getPosition, this));
-        this.systems.set("GRAPHICS", new GraphicsSystem());
+        this.systems.set("GRAPHICS", new GraphicsSystem(this.rendering));
         this.systems.set("PLAYER", new PlayerSystem());
-        this.systems.set("BOMB", new BombSystem());
+        this.systems.set("BOMB", new BombSystem(this));
     }
 
     update(dt: number) {
@@ -134,7 +134,7 @@ class ECSManager {
             }
 
             // Delete in manager
-            let index = this.entities.findIndex(c => c.id == this.entityDeletionQueue[i]);
+            let index = this.entities.findIndex(e => e.id == this.entityDeletionQueue[i]);
             if (index != -1) {
                 this.entities.splice(index, 1);
             }

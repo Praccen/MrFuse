@@ -1,7 +1,9 @@
 class GraphicsSystem extends System {
-
-    constructor() {
+    private rendering: Rendering;
+    
+    constructor(rendering: Rendering) {
         super([ComponentTypeEnum.GRAPHICS, ComponentTypeEnum.POSITION]);
+        this.rendering = rendering;
     }
 
     update(dt: number) {
@@ -12,6 +14,29 @@ class GraphicsSystem extends System {
             if (graphComp && posComp) {
                 posComp.calculateMatrix(graphComp.quad.modelMatrix);
             }
+        }
+    }
+
+    removeFaultyEntity(entityId: number) {
+        const index = this.entities.findIndex(c => c.id == entityId);
+        if (index != -1) {
+            if (!this.entityHasCorrectComponents(this.entities[index])) {
+                let graphComp = <GraphicsComponent> this.entities[index].getComponent(ComponentTypeEnum.GRAPHICS);
+                this.rendering.deleteQuad(graphComp.quad);
+
+                this.entities.splice(index, 1);
+            }
+        }
+    }
+
+    removeEntity(entityId: number) {
+        const index = this.entities.findIndex(c => c.id == entityId);
+
+        if (index != -1) {
+            let graphComp = <GraphicsComponent> this.entities[index].getComponent(ComponentTypeEnum.GRAPHICS);
+            this.rendering.deleteQuad(graphComp.quad);
+
+            this.entities.splice(index, 1);
         }
     }
 };

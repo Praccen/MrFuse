@@ -61,6 +61,13 @@ class Rendering {
 		return this.quads[length-1];
 	}
 
+    deleteQuad(quad: Quad) {
+        let index = this.quads.findIndex(q => q == quad);
+        if (index != -1) {
+            this.quads.splice(index, 1);
+        }
+    }
+
 	draw() {
         if (this.useCrt ) {
             // Render scene to crt framebuffer
@@ -71,6 +78,7 @@ class Rendering {
 		
 		this.simpleShaderProgram.use();
 		this.camera.bindViewMatrix(this.simpleShaderProgram.getUniformLocation("viewMatrix"));
+
 		for (let quad of this.quads.values()) {
 			quad.draw();
 		}

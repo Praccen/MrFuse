@@ -1,13 +1,26 @@
 class BombSystem extends System {
-    constructor() {
+    private ecsManager: ECSManager;
+
+    constructor(manager: ECSManager) {
         super([ComponentTypeEnum.BOMB, ComponentTypeEnum.COLLISION, ComponentTypeEnum.ANIMATION]);
+        this.ecsManager = manager;
     }
 
     update(dt: number) {
         for(let entity of this.entities) {
 
             let b = <BombComponent>entity.getComponent(ComponentTypeEnum.BOMB);
-            if(b.exploded) continue;
+
+            b.timer -= dt;
+
+            if(b.exploded) {
+                if (b.timer < -1.0) {
+                    // Delete entity
+                    this.ecsManager.removeEntity(entity.id);
+                }    
+                continue;
+            }
+
             let c = <CollisionComponent>entity.getComponent(ComponentTypeEnum.COLLISION);
 
             c.currentCollisionEntities.forEach((ce) => {
@@ -16,8 +29,6 @@ class BombSystem extends System {
                     b.timer = b.timer + 1 < b.maxTime ? b.timer + 1 : b.maxTime;
                 }
             })
-
-            b.timer -= dt;
 
             let animComp = <AnimationComponent> entity.getComponent(ComponentTypeEnum.ANIMATION);
             let bombStage = Math.max(Math.min(Math.floor((b.timer / b.maxTime) * 2.0), 2.0), 0.0); 
