@@ -84,16 +84,28 @@ class Game {
     createMobile(): Entity {
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.textureMatrix.setScale(0.5, 0.5, 1.0);
+        gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png")
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(0.0, 4.0);
-        pc.scale.xy.x = 0.5;
-        pc.scale.xy.y = 0.5;
         this.ecsManager.addComponent(entity, pc);
-        this.ecsManager.addComponent(entity, new MovementComponent());
-        let cc = new CollisionComponent();
+        let mc = new MovementComponent();
+        mc.defaultDrag = 0.1;
+        this.ecsManager.addComponent(entity, mc);
+        let cc = new CollisionComponent(3.0);
+        cc.shape.clearVertices();
+        cc.shape.addVertex(new Vec2(-0.4, 0.4));
+        cc.shape.addVertex(new Vec2(-0.4, -0.5));
+        cc.shape.addVertex(new Vec2(0.4, -0.5));
+        cc.shape.addVertex(new Vec2(0.4, 0.4));
         cc.bounce = true;
         this.ecsManager.addComponent(entity, cc);
+        let ac = new AnimationComponent();
+        ac.spriteMap.setNrOfSprites(3, 3);
+        ac.startingTile = {x: 0, y: 1};
+        ac.advanceBy = {x: 1.0, y: 0.0};
+        ac.modAdvancement = {x: 3.0, y: 1.0};
+        ac.updateInterval = 0.05;
+        this.ecsManager.addComponent(entity, ac);
         return entity;
     }
     update(dt: number) {
