@@ -1,3 +1,11 @@
+const mapSrc = `
+1000000000001
+1000000000001
+1000000000001
+1000011000001
+1000000000011
+1100000001001
+2222222222222`;
 class MapSystem extends System {
     constructor(getCameraPos, manager) {
         super([ComponentTypeEnum.MAPTILE, ComponentTypeEnum.POSITION]);
@@ -5,18 +13,7 @@ class MapSystem extends System {
         this.ecsManager = manager;
         this.nrTiles = 0;
         this.maxTiles = 4;
-        this.createTile(3.5, 0.0);
-        this.createTile(-4.0, 0.0);
-        this.createTile(-2.0, 2.0);
-        this.createTile(6.0, 0.0);
-        this.createTile(10.0, 2.0);
-        this.createTile(11.0, 2.0);
-        this.createTile(14.0, 0.0);
-        this.createTile(14.5, 1.0);
-        this.createTile(15.0, 0.0);
-        for (let i = 0; i < 3; i++) {
-            this.createFloor(10 * i);
-        }
+        this.populateMap();
     }
     update() {
         const camX = this.ecsManager.camera.getPosition().x;
@@ -36,7 +33,21 @@ class MapSystem extends System {
         //     }
         // }
     }
-    createTile(x, y) {
+    populateMap() {
+        let y = -1;
+        let x = -3;
+        for (let i = mapSrc.length - 1; i >= 0; i--) {
+            x++;
+            if (mapSrc.charAt(i) == '\n') {
+                y++;
+                x = -3;
+            }
+            else if (mapSrc.charAt(i) != '0') {
+                this.createTile(x, y, parseInt(mapSrc.charAt(i), 10));
+            }
+        }
+    }
+    createTile(x, y, type) {
         // let entity = this.ecsManager.createEntity();
         // let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
         // gc.quad.texture.loadFromFile(
@@ -54,7 +65,12 @@ class MapSystem extends System {
         this.nrTiles++;
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
+        if (type == 1) {
+            gc.quad.texture.loadFromFile("Assets/Textures/Environment/Platform.png");
+        }
+        else if (type == 2) {
+            gc.quad.texture.loadFromFile("Assets/Textures/Environment/Ground.png");
+        }
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, new PositionComponent(x, y));
         let cc = new CollisionComponent();
@@ -63,21 +79,6 @@ class MapSystem extends System {
         this.ecsManager.addComponent(entity, cc);
         return entity;
         // return entity;
-    }
-    createFloor(x) {
-        let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Environment/Ground.png");
-        gc.quad.textureMatrix.setScale(10.0, 1.0, 1.0);
-        this.ecsManager.addComponent(entity, gc);
-        let pc = new PositionComponent(x, -1.0);
-        pc.scale.xy.x = 10.0;
-        this.ecsManager.addComponent(entity, pc);
-        let cc = new CollisionComponent();
-        cc.isConstraint = true;
-        this.ecsManager.addComponent(entity, new MapTileComponent());
-        this.ecsManager.addComponent(entity, cc);
-        return entity;
     }
 }
 //# sourceMappingURL=MapSystem.js.map
