@@ -46,9 +46,9 @@ function resize(gl, rendering) {
 window.onload = () => {
     "use strict";
     let gl = initWebGL();
-    const rendering = new Rendering(gl);
-    const ecsManager = new ECSManager(rendering);
-    const game = new Game(gl, rendering, ecsManager);
+    let rendering = new Rendering(gl);
+    let ecsManager = new ECSManager(rendering);
+    let game = new Game(gl, rendering, ecsManager);
     let lastTick = null;
     //Fixed update rate
     let minUpdateRate = 1.0 / 60.0;
@@ -94,6 +94,9 @@ window.onload = () => {
         requestAnimationFrame(gameLoop);
         if (game.gameOver) {
             console.log("Game Over!");
+            rendering = new Rendering(gl);
+            ecsManager = new ECSManager(rendering);
+            game = new Game(gl, rendering, ecsManager);
         }
     }
     window.addEventListener("resize", function () {

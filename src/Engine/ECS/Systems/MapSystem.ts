@@ -82,7 +82,6 @@ class MapSystem extends System {
                 this.createTile(section['2'][rand]+1, this.mapHeight, 3);
                 this.nextSection = 2;
             }
-
         }
     }
 

@@ -37,6 +37,7 @@ class ECSManager {
         this.systems.set("BOMB", new BombSystem(this));
     }
 
+
     update(dt: number) {
         // Add new entities
         this.addQueuedEntities();
