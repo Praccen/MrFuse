@@ -9,8 +9,6 @@ class BombSystem extends System {
             b.timer -= dt;
             if (b.exploding || b.exploded) {
                 if (b.timer < -b.explosionTime) {
-                    // Delete entity
-                    //this.ecsManager.removeEntity(entity.id);
                     b.exploded = true;
                 }
                 continue;
