@@ -117,8 +117,6 @@ window.onload = () => {
 
 		ecsManager.updateRenderingSystems(dt);
 		rendering.draw();
-		
-		requestAnimationFrame(gameLoop);
 
         if(game.gameOver && !waitingForRestart){
             rendering.printText();
@@ -132,6 +130,8 @@ window.onload = () => {
                 }
             })
         }
+
+        requestAnimationFrame(gameLoop);
 	}
 
     window.addEventListener("resize", function () {

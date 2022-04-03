@@ -1,14 +1,15 @@
 const mapSrc = `
-0
-0
+222222200000
+000000000022
+000000002022
 000002222222
 050000000022
 033300000000
 000044500000
 000000000000
 000000000333
-000000330330
-000003333330`;
+000000330332
+000003333332`;
 const section = {
     1: [-2, 9],
     2: [-1, 0, 7, 8],
@@ -99,6 +100,19 @@ class MapSystem extends System {
         // And walls
         this.createTile(0.0, this.mapHeight / 2 - 0.5, 1.0, this.mapHeight, 2);
         this.createTile(this.mapWidth + 1, this.mapHeight / 2.0 - 0.5, 1.0, this.mapHeight, 2);
+        // And back wall
+        let entity = this.ecsManager.createEntity();
+        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
+        let pc = new PositionComponent();
+        pc.position.xy.x = this.mapWidth / 2.0 + 0.5;
+        pc.position.xy.y = this.mapHeight / 2.0 - 0.5;
+        pc.position.z = 0.5;
+        pc.scale.xy.x = this.mapWidth + 0.5;
+        pc.scale.xy.y = this.mapHeight;
+        gc.quad.texture.loadFromFile("Assets/Textures/Environment/WallPlanks.png");
+        gc.quad.textureMatrix.setScale(this.mapWidth + 0.5, this.mapHeight, 1.0);
+        this.ecsManager.addComponent(entity, gc);
+        this.ecsManager.addComponent(entity, pc);
     }
     createTile(x, y, width, height, type) {
         this.nrTiles++;

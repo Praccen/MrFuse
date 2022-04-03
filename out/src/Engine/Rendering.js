@@ -16,7 +16,7 @@ class Rendering {
         this.quads = new Array();
     }
     initGL() {
-        this.gl.clearColor(0.3, 0.2, 0.4, 1.0);
+        this.gl.clearColor(0.25, 0.2, 0.6, 1.0);
         // Enable depth test
         this.gl.enable(this.gl.DEPTH_TEST);
         //Enable alpha blending

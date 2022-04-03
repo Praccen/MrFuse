@@ -26,7 +26,8 @@ class BombSystem extends System {
             c.currentCollisionEntities.forEach((ce) => {
                 if(ce.hasComponent(ComponentTypeEnum.PLAYER)){
                     // console.log("Time increased");
-                    b.timer = b.timer + 1 < b.maxTime ? b.timer + 1 : b.maxTime;
+                    // b.timer = b.timer + 1 < b.maxTime ? b.timer + 1 : b.maxTime;
+                    b.timer = b.maxTime;
 
                     // Recalculate bounce
                     let p = <PositionComponent> entity.getComponent(ComponentTypeEnum.POSITION);
@@ -35,8 +36,7 @@ class BombSystem extends System {
                     let m2 = <MovementComponent> ce.getComponent(ComponentTypeEnum.MOVEMENT);
                     if (p2) {
                         const posDiff = new Vec2(p.position.xy.x, p.position.xy.y).subtract(p2.position.xy);
-                        m.velocity.xy.x = m.velocity.xy.x + m2.velocity.xy.x + posDiff.x * 10.0;
-                        m.accelerationDirection.xy.x += m2.accelerationDirection.xy.x;
+                        m.velocity.xy.x = m2.velocity.xy.x + posDiff.x * 10.0;
                         m.velocity.xy.y = (5.0 + m2.velocity.xy.y) * posDiff.y;
                     }
                 }
