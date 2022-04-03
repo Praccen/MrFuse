@@ -19,6 +19,7 @@ class Rendering {
 
 	private screenFramebuffer: Framebuffer;
 	private screenQuad: ScreenQuad;
+    private textQuad: TextQuad;
 
 	constructor(gl: WebGL2RenderingContext) {
 		this.gl = gl;
@@ -35,6 +36,9 @@ class Rendering {
 
 		this.screenFramebuffer = new Framebuffer(this.gl, this.gl.canvas.width, this.gl.canvas.height);
 		this.screenQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.screenFramebuffer.texture);
+        this.textQuad = null;
+        //this.printText();
+
 		this.initGL();
 
 		this.quads = new Array<Quad>();
@@ -67,6 +71,12 @@ class Rendering {
 		return this.quads[length-1];
 	}
 
+    printText(): void {
+        const texture = new Texture(this.gl, 0);
+        texture.loadFromFile("Assets/Textures/Items/Bomb.png");
+		this.textQuad= new TextQuad(this.gl, this.screenQuadShaderProgram, texture);
+    }
+
     deleteQuad(quad: Quad) {
         let index = this.quads.findIndex(q => q == quad);
         if (index != -1) {
@@ -91,6 +101,11 @@ class Rendering {
 
 		// Disable depth for screen quad(s) rendering
 		this.gl.disable(this.gl.DEPTH_TEST); 
+
+        if(this.textQuad){
+        this.screenQuadShaderProgram.use();
+        this.textQuad.draw();
+        }
 
         if (this.useCrt) {
             // Crt effect
