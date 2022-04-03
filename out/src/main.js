@@ -56,6 +56,7 @@ window.onload = () => {
     let updatesSinceRender = 0;
     let fpsUpdateTimer = 0.0;
     let frameCounter = 0;
+    let waitingForRestart = false;
     /* Gameloop */
     function gameLoop() {
         let now = Date.now();
@@ -92,11 +93,17 @@ window.onload = () => {
         ecsManager.updateRenderingSystems(dt);
         rendering.draw();
         requestAnimationFrame(gameLoop);
-        if (game.gameOver) {
-            console.log("Game Over!");
-            rendering = new Rendering(gl);
-            ecsManager = new ECSManager(rendering);
-            game = new Game(gl, rendering, ecsManager);
+        if (game.gameOver && !waitingForRestart) {
+            rendering.printText();
+            waitingForRestart = true;
+            window.addEventListener('keydown', function (event) {
+                if (event.key == " ") {
+                    waitingForRestart = false;
+                    rendering = new Rendering(gl);
+                    ecsManager = new ECSManager(rendering);
+                    game = new Game(gl, rendering, ecsManager);
+                }
+            });
         }
     }
     window.addEventListener("resize", function () {

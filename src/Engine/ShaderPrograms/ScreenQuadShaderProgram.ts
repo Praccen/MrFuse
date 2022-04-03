@@ -23,8 +23,8 @@ in vec2 texCoords;
 uniform sampler2D screenTexture;
 
 void main() {
-    vec3 col = texture(screenTexture, texCoords).rgb;
-    FragColor = vec4(col, 1.0);
+    vec4 col = texture(screenTexture, texCoords).rgba;
+    FragColor = col;
 }
 `;
 

@@ -11,10 +11,10 @@ class TextQuad extends GraphicsObject {
 
         this.vertices = new Float32Array([ 
             // positions        // uv
-            -0.5,  0.5,     0.0, 0.5,
-            -0.5, -0.5,     0.0, 0.0,
-             0.5, -0.5,     0.5, 0.0,
-             0.5,  0.5,     0.5, 0.5,
+            -0.5,  1.0,     0.0, 0.5,
+            -0.5, -0.0,     0.0, 0.0,
+             0.5, -0.0,     0.5, 0.0,
+             0.5,  1.0,     0.5, 0.5,
         ]);
         this.indices = new Int32Array([
             0, 1, 2,

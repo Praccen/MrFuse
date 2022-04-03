@@ -76,6 +76,9 @@ class Rendering {
         texture.loadFromFile("Assets/Textures/Items/Bomb.png");
 		this.textQuad= new TextQuad(this.gl, this.screenQuadShaderProgram, texture);
     }
+    clearText(): void {
+        this.textQuad = null;
+    }
 
     deleteQuad(quad: Quad) {
         let index = this.quads.findIndex(q => q == quad);

@@ -11,7 +11,7 @@ class Rendering {
         this.screenFramebuffer = new Framebuffer(this.gl, this.gl.canvas.width, this.gl.canvas.height);
         this.screenQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.screenFramebuffer.texture);
         this.textQuad = null;
-        this.printText();
+        //this.printText();
         this.initGL();
         this.quads = new Array();
     }
@@ -40,6 +40,9 @@ class Rendering {
         texture.loadFromFile("Assets/Textures/Items/Bomb.png");
         this.textQuad = new TextQuad(this.gl, this.screenQuadShaderProgram, texture);
     }
+    clearText() {
+        this.textQuad = null;
+    }
     deleteQuad(quad) {
         let index = this.quads.findIndex(q => q == quad);
         if (index != -1) {
@@ -60,8 +63,10 @@ class Rendering {
         }
         // Disable depth for screen quad(s) rendering
         this.gl.disable(this.gl.DEPTH_TEST);
-        this.screenQuadShaderProgram.use();
-        this.textQuad.draw();
+        if (this.textQuad) {
+            this.screenQuadShaderProgram.use();
+            this.textQuad.draw();
+        }
         if (this.useCrt) {
             // Crt effect
             this.screenFramebuffer.bind(this.gl.DRAW_FRAMEBUFFER); // Set screen framebuffer as output
