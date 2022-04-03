@@ -63,21 +63,14 @@ class CollisionSystem extends System {
                             p.position.xy.add(moveOutVec);
                             let normalizedIntersectionAxis = new Vec2(tempIntersectionAxis.x, tempIntersectionAxis.y);
                             normalizedIntersectionAxis.normalize();
+
                             let dotProd = normalizedIntersectionAxis.dot(m.velocity.xy);
+                        
                             if (dotProd < 0.0) {
                                 let tempVec = new Vec2(normalizedIntersectionAxis.x, normalizedIntersectionAxis.y);
-                                m.velocity.xy.add(tempVec.multiply(-dotProd));
+                                m.velocity.xy.add(tempVec.multiply(-dotProd * (1.0 + c.bounceFactor)));
                             }
-                            if (c.bounce) {
-                                if (m2) {
-                                    const posDiff = new Vec2(p.position.xy.x, p.position.xy.y).subtract(p2.position.xy);
-                                    m.velocity.xy.x = m.velocity.xy.x + m2.velocity.xy.x + posDiff.x * 10.0;
-                                    m.accelerationDirection.xy.x += m2.accelerationDirection.xy.x;
-                                    m.velocity.xy.y = (5.0 + m2.velocity.xy.y) * posDiff.y;
-                                } else {
-                                    m.velocity.xy.y = 5.0;
-                                }
-                            }
+                                
                             // Allow jumping if standing on ground pointing upwards
                             if (normalizedIntersectionAxis.y > 0.6) {
                                 m.jumpAllowed = true;

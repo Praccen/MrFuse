@@ -4,7 +4,7 @@ class CollisionComponent extends Component {
     isConstraint: boolean;
     effectMovement: boolean;
 	allowedClimbing: number;
-    bounce: boolean;
+    bounceFactor: number;
     dragFactor: number;
 
     constructor(dragFactor: number = 5.0) {
@@ -14,7 +14,7 @@ class CollisionComponent extends Component {
         this.isConstraint = false;
         this.effectMovement = true;
         this.allowedClimbing = 0.0;
-        this.bounce = false;
+        this.bounceFactor = 0.0;
         this.dragFactor = dragFactor;
 
         this.shape = new Shape();

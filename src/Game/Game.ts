@@ -70,7 +70,7 @@ class Game {
         cc.shape.addVertex(new Vec2(-0.4, -0.5));
         cc.shape.addVertex(new Vec2(0.4, -0.5));
         cc.shape.addVertex(new Vec2(0.4, 0.4));
-        cc.bounce = true;
+        cc.bounceFactor = 1.0;
         this.ecsManager.addComponent(entity, cc);
         let ac = new AnimationComponent();
         ac.spriteMap.setNrOfSprites(3, 4.01); // 3.01 to avoid bomb above in sprite map being slightly visible

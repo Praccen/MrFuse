@@ -5,7 +5,7 @@ class CollisionComponent extends Component {
         this.isConstraint = false;
         this.effectMovement = true;
         this.allowedClimbing = 0.0;
-        this.bounce = false;
+        this.bounceFactor = 0.0;
         this.dragFactor = dragFactor;
         this.shape = new Shape();
         this.shape.addNormal(new Vec2(1.0, 0.0));
