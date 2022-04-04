@@ -4,7 +4,8 @@ class AudioPlayer {
 	constructor() {
         this.sounds = {
             bell: new Audio("Assets/Audio/Effects/bell.m4a"), //https://opengameart.org/content/100-cc0-sfx
-            fuse: new Audio("Assets/Audio/Effects/fuse.ogg")
+            fuse: new Audio("Assets/Audio/Effects/fuse.ogg"),
+            bump: new Audio("Assets/Audio/Effects/nutfall.flac"),
         }
         
         for (let sound in this.sounds) {

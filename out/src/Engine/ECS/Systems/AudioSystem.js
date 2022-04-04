@@ -21,9 +21,11 @@ class AudioSystem extends System {
             //tysta explosion
             //om bomb och spelare kolliderat
             //spela kollision
-            if (bc && cc) {
+            if (bc && cc && mc) {
                 if (cc.currentCollisionEntities.size) {
-                    this.audio.playSound('bell', false);
+                    //this.audio.setVolume('bell', Math.min(mc.velocity.xy.length2(), 0.2));
+                    // this.audio.setTime('bell', 0.0);
+                    this.audio.playSound('bump', false);
                 }
                 // cc.currentCollisionEntities.forEach((e2) => 
                 // this.audio.playSound('bell', false));
