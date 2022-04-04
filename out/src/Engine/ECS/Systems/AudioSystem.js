@@ -15,20 +15,30 @@ class AudioSystem extends System {
             }
             //om bomb exploderar
             //tysta fuse, spela explosion
+            if (bc === null || bc === void 0 ? void 0 : bc.exploding) {
+                this.audio.pauseSound('fuse');
+                this.audio.playSound('explode', false);
+            }
             //om bomb inte exploderar och inte har exploderat
             //spela fuse (högre och högre?)
+            // if(!bc?.exploded && !bc?.exploding) {
+            //     this.audio.pauseSound('fuse');
+            //     this.audio.setTime('fuse', 0.0);
+            //     this.audio.playSound('fuse', false);
+            // }
             //om bomb har exploderat
             //tysta explosion
+            if (bc === null || bc === void 0 ? void 0 : bc.exploded) {
+                this.audio.pauseSound('explode');
+            }
             //om bomb och spelare kolliderat
             //spela kollision
-            if (bc && cc && mc) {
+            if (bc && cc) {
                 if (cc.currentCollisionEntities.size) {
-                    //this.audio.setVolume('bell', Math.min(mc.velocity.xy.length2(), 0.2));
-                    // this.audio.setTime('bell', 0.0);
+                    this.audio.pauseSound('bump');
+                    this.audio.setTime('bump', 0.0);
                     this.audio.playSound('bump', false);
                 }
-                // cc.currentCollisionEntities.forEach((e2) => 
-                // this.audio.playSound('bell', false));
             }
         }
         //spela musik (snabbare om bomben är påväg att sprängas?)
