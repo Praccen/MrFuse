@@ -91,26 +91,6 @@ class Game {
                 this.gameLost = true;
             }
         }
-        let pp = this.playerEntity.getComponent(ComponentTypeEnum.POSITION);
-        let bp = this.bombEntity.getComponent(ComponentTypeEnum.POSITION);
-        if (input.keys["1"]) {
-            pp.position.xy.x = 10;
-            pp.position.xy.y = 8;
-            bp.position.xy.x = 10;
-            bp.position.xy.y = 10;
-        }
-        else if (input.keys["2"]) {
-            pp.position.xy.x = 11;
-            pp.position.xy.y = 15;
-            bp.position.xy.x = 11;
-            bp.position.xy.y = 16;
-        }
-        else if (input.keys["3"]) {
-            pp.position.xy.x = 11;
-            pp.position.xy.y = 19;
-            bp.position.xy.x = 11;
-            bp.position.xy.y = 20;
-        }
     }
 }
 //# sourceMappingURL=Game.js.map
