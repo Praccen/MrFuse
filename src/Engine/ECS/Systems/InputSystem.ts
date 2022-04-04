@@ -9,20 +9,20 @@ class InputSystem extends System {
                 e.getComponent(ComponentTypeEnum.MOVEMENT)
             );
 
-            if (input.keys["w"]) {
+            if (input.keys["w"] || input.keys["ArrowUp"] ) {
                 movComp.jumpRequested = true;
                 movComp.accelerationDirection.xy.y += 1.0;
             }
 
-            if (input.keys["s"]) {
+            if (input.keys["s"] || input.keys["ArrowDown"]) {
                 movComp.accelerationDirection.xy.y += -1.0;
             }
 
-            if (input.keys["a"]) {
+            if (input.keys["a"] || input.keys["ArrowLeft"]) {
                 movComp.accelerationDirection.xy.x += -1.0;
             }
 
-            if (input.keys["d"]) {
+            if (input.keys["d"] || input.keys["ArrowRight"]) {
                 movComp.accelerationDirection.xy.x += 1.0;
             }
         });

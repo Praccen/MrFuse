@@ -13,9 +13,9 @@ class PlayerSystem extends System {
             animComp.startingTile.y = 2.0;
             animComp.updateInterval = 0.15;
 
-            if (input.keys["d"]) {
+            if (input.keys["d"] || input.keys["ArrowRight"]) {
                 posComp.scale.xy.x = 1.0;
-            } else if (input.keys["a"]) {
+            } else if (input.keys["a"] || input.keys["ArrowLeft"]) {
                 posComp.scale.xy.x = -1.0;
             }
             else {
