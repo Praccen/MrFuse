@@ -25,13 +25,6 @@ let mapSrc =
 000000330322
 000003223222`;
 
-const section = {
-    1: [-2, 9],
-    2: [-1, 0, 7, 8],
-    3: [2,3,5,6],
-    4: [4],
-}
-
 const textureDictionary = {
     1: "Assets/Textures/Environment/Ground.png",
     2: "Assets/Textures/Environment/CobbleBricks.png",
@@ -42,66 +35,25 @@ const textureDictionary = {
 
 class MapSystem extends System {
     ecsManager: ECSManager;
-    nrTiles: number;
-    maxTiles: number;
 
     mapHeight: number;
     mapWidth: number;
     mapLimit: {left: number, right: number};
-    nextSection: number;
 
     constructor(
         manager: ECSManager
     ) {
         super([ComponentTypeEnum.MAPTILE, ComponentTypeEnum.POSITION]);
         this.ecsManager = manager;
-        this.nrTiles = 0;
-        this.maxTiles = 4;
         this.mapHeight = 0;
         this.mapWidth = 0;
         this.mapLimit = {left: 0, right: 0};
-        this.nextSection = 1;
 
         this.populateMap();
     }
 
     update() {
-        // const camPos = this.ecsManager.camera.getPosition();
-
-        // //if player has gotten this far up, its time to spawn a new row
-        // const camTopDistance = this.mapHeight - camPos.y;
-        // if(camTopDistance < 3.0) {
-        //     this.mapHeight++;
-        //     //walls
-        //     this.createTile(-2, this.mapHeight, 1.0, 1.0, 4);
-        //     this.createTile(this.mapWidth, this.mapHeight, 1.0, 1.0, 4);
-
-
-        //     if(this.nextSection == 1) {
-        //         let rand = Math.floor(Math.random()*section['3'].length);
-        //         this.createTile(section['3'][rand], this.mapHeight, 1.0, 1.0, 3);
-        //         this.createTile(section['3'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
-        //         this.nextSection = 4;
-        //     } 
-        //     else if(this.nextSection == 2) {
-        //         let rand = Math.floor(Math.random()*section['4'].length);
-        //         this.createTile(section['4'][rand], this.mapHeight, 1.0, 1.0, 3);
-        //         this.createTile(section['4'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
-        //         this.nextSection = 3;
-        //     }
-        //     else if(this.nextSection == 3) {
-        //         let rand = Math.floor(Math.random()*section['1'].length);
-        //         this.createTile(section['1'][rand], this.mapHeight, 1.0, 1.0, 3);
-        //         this.nextSection = 1;
-        //     }
-        //     else if(this.nextSection == 4){
-        //         const rand = Math.floor(Math.random()*section['2'].length);
-        //         this.createTile(section['2'][rand], this.mapHeight, 1.0, 1.0, 3);
-        //         this.createTile(section['2'][rand]+1, this.mapHeight, 1.0, 1.0, 3);
-        //         this.nextSection = 2;
-        //     }
-
-        // }
+        
     }
 
     populateMap() {
@@ -125,9 +77,9 @@ class MapSystem extends System {
             }
         }
         this.mapWidth = Math.max(x, this.mapWidth);
-        this.mapLimit.left = -1;
-        this.mapLimit.right = this.mapWidth + 1;
         this.mapHeight = y;
+        this.mapLimit.left = -0.5;
+        this.mapLimit.right = this.mapWidth + 1.5;
 
         // Actually place tiles
         y = this.mapHeight - 1;
@@ -166,9 +118,6 @@ class MapSystem extends System {
     }
 
     createTile(x: number, y: number, width: number, height: number, type: number) {
- 
-        this.nrTiles++;
-
         let entity = this.ecsManager.createEntity();
         let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad(textureDictionary[type]));
         let pc = new PositionComponent(x, y);
