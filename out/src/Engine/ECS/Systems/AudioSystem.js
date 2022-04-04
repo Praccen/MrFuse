@@ -10,26 +10,15 @@ class AudioSystem extends System {
             let mc = e.getComponent(ComponentTypeEnum.MOVEMENT);
             let bc = e.getComponent(ComponentTypeEnum.BOMB);
             let cc = e.getComponent(ComponentTypeEnum.COLLISION);
-            //om jump-requested
-            //spela jump
-            if (mc === null || mc === void 0 ? void 0 : mc.jumpRequested) {
-                this.audio.playSound('bell', false);
-            }
-            //om bomb exploderar
-            //tysta fuse, spela explosion
+            //if jump requested
+            // if(mc?.jumpRequested){
+            //     this.audio.playSound('bell', false);
+            // }
+            //if bomb explodes
             if (bc === null || bc === void 0 ? void 0 : bc.exploding) {
-                this.audio.pauseSound('fuse');
                 this.audio.playSound('explode', false);
             }
-            //om bomb inte exploderar och inte har exploderat
-            //spela fuse (högre och högre?)
-            if (!(bc === null || bc === void 0 ? void 0 : bc.exploded) && !(bc === null || bc === void 0 ? void 0 : bc.exploding)) {
-                //this.audio.pauseSound('fuse');
-                //this.audio.setTime('fuse', 0.0);
-                this.audio.playSound('fuse', false);
-            }
-            //om bomb har exploderat
-            //tysta explosion
+            //if bomb has exploded
             if (bc === null || bc === void 0 ? void 0 : bc.exploded) {
                 this.audio.pauseSound('explode');
             }
@@ -47,7 +36,6 @@ class AudioSystem extends System {
                 }
             }
         }
-        //spela musik (snabbare om bomben är påväg att sprängas?)
     }
 }
 //# sourceMappingURL=AudioSystem.js.map

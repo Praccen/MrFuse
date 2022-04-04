@@ -60,9 +60,13 @@ window.onload = () => {
     let gameOverTextEnabled = false;
     /* Gameloop */
     function gameLoop() {
-        //If user has interacted, allow audio to play
-        // console.log(Object.keys(input.keys).length);
-        if (!audio.active && (input.mouseClicked || input.keys['w'] || input.keys['a'] || input.keys['s'] || input.keys['d'])) {
+        //If user has interacted with the game, allow audio to play
+        if (!audio.active &&
+            (input.mouseClicked ||
+                input.keys["w"] ||
+                input.keys["a"] ||
+                input.keys["s"] ||
+                input.keys["d"])) {
             audio.active = true;
         }
         let now = Date.now();
@@ -94,7 +98,6 @@ window.onload = () => {
         if (updatesSinceRender == 0) {
             // dt is faster than min update rate, allow faster updates
             game.update(updateTimer);
-            //audio.playSound('fuse', true);
             ecsManager.update(updateTimer);
             updateTimer = 0.0;
         }

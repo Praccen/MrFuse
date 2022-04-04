@@ -16,29 +16,18 @@ class AudioSystem extends System {
             let bc = <BombComponent>e.getComponent(ComponentTypeEnum.BOMB);
             let cc = <CollisionComponent>e.getComponent(ComponentTypeEnum.COLLISION);
 
-            //om jump-requested
-            //spela jump
-            if(mc?.jumpRequested){
-                this.audio.playSound('bell', false);
-            }
+            //if jump requested
+            // if(mc?.jumpRequested){
+            //     this.audio.playSound('bell', false);
+            // }
 
-            //om bomb exploderar
-            //tysta fuse, spela explosion
+            //if bomb explodes
             if(bc?.exploding) {
-                this.audio.pauseSound('fuse');
                 this.audio.playSound('explode', false);
             }
 
-            //om bomb inte exploderar och inte har exploderat
-            //spela fuse (högre och högre?)
-            if(!bc?.exploded && !bc?.exploding) {
-                //this.audio.pauseSound('fuse');
-                //this.audio.setTime('fuse', 0.0);
-                this.audio.playSound('fuse', false);
-            }
 
-            //om bomb har exploderat
-            //tysta explosion
+            //if bomb has exploded
             if(bc?.exploded) {
                 this.audio.pauseSound('explode');
             }
@@ -59,7 +48,5 @@ class AudioSystem extends System {
 
 
         }
-
-        //spela musik (snabbare om bomben är påväg att sprängas?)
     }
 }

@@ -126,7 +126,6 @@ window.onload = () => {
         if (updatesSinceRender == 0) {
             // dt is faster than min update rate, allow faster updates
             game.update(updateTimer);
-            //audio.playSound('fuse', true);
             ecsManager.update(updateTimer);
             updateTimer = 0.0;
         }
