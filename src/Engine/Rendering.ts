@@ -6,6 +6,7 @@ class Rendering {
 
 	// private
 	private gl: WebGL2RenderingContext;
+    private textureStore: TextureStore;
 	private texturesRequestedVsLoaded: object;
 
 	private simpleShaderProgram: SimpleShaderProgram;
@@ -23,6 +24,7 @@ class Rendering {
 
 	constructor(gl: WebGL2RenderingContext) {
 		this.gl = gl;
+        this.textureStore = new TextureStore(gl);
 		this.camera = new Camera(gl);
 
         this.useCrt = true;
@@ -66,14 +68,17 @@ class Rendering {
         console.log("X: " + x + " px " + "Y: " + y + " px");
     }
 
-	getNewQuad(): Quad {
-		const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, new Texture(this.gl, 0)));
+    loadTextureToStore(texturePath: string) {
+        this.textureStore.getTexture(texturePath);
+    }
+
+	getNewQuad(texturePath: string): Quad {
+		const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, this.textureStore.getTexture(texturePath)));
 		return this.quads[length-1];
 	}
 
     printText(): void {
-        const texture = new Texture(this.gl, 0);
-        texture.loadFromFile("Assets/Textures/Text/GameOverText.png");
+        const texture = this.textureStore.getTexture("Assets/Textures/Text/GameOverText.png");
 		this.textQuad= new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
     }
     clearText(): void {

@@ -152,14 +152,13 @@ class MapSystem extends System {
 
         // And back wall
         let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
+        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad("Assets/Textures/Environment/WallPlanks.png"));
         let pc = new PositionComponent();
         pc.position.xy.x = this.mapWidth / 2.0 + 0.5;
         pc.position.xy.y = this.mapHeight / 2.0 - 0.5;
         pc.position.z = 0.5;
         pc.scale.xy.x = this.mapWidth + 0.5;
         pc.scale.xy.y = this.mapHeight;
-        gc.quad.texture.loadFromFile("Assets/Textures/Environment/WallPlanks.png");
         gc.quad.textureMatrix.setScale(this.mapWidth + 0.5, this.mapHeight, 1.0);
         this.ecsManager.addComponent(entity, gc);
         this.ecsManager.addComponent(entity, pc);
@@ -170,9 +169,8 @@ class MapSystem extends System {
         this.nrTiles++;
 
         let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad());
+        let gc = new GraphicsComponent(this.ecsManager.rendering.getNewQuad(textureDictionary[type]));
         let pc = new PositionComponent(x, y);
-        gc.quad.texture.loadFromFile(textureDictionary[type]);
 
         pc.scale.xy.x = width;
         pc.scale.xy.y = height;

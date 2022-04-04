@@ -8,12 +8,21 @@ class Game {
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
         this.gameOver = false;
+        // Load all textures to avoid loading mid game
+        rendering.loadTextureToStore("Assets/Textures/Buttons/Button.png");
+        rendering.loadTextureToStore("Assets/Textures/Character/Character.png");
+        rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricks.png");
+        rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricksBackground.png");
+        rendering.loadTextureToStore("Assets/Textures/Environment/Ground.png");
+        rendering.loadTextureToStore("Assets/Textures/Environment/Platform.png");
+        rendering.loadTextureToStore("Assets/Textures/Environment/WallPlanks.png");
+        rendering.loadTextureToStore("Assets/Textures/Items/Bomb.png");
+        rendering.loadTextureToStore("Assets/Textures/Text/GameOverText.png");
     }
     createPlayerEntity() {
         let entity = this.ecsManager.createEntity();
         this.ecsManager.addComponent(entity, new PlayerComponent());
-        let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Character/Character.png");
+        let gc = new GraphicsComponent(this.rendering.getNewQuad("Assets/Textures/Character/Character.png"));
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(2.0);
         pc.scale.xy = new Vec2(1.0, 1.5);
@@ -41,8 +50,7 @@ class Game {
     }
     createBomb() {
         let entity = this.ecsManager.createEntity();
-        let gc = new GraphicsComponent(this.rendering.getNewQuad());
-        gc.quad.texture.loadFromFile("Assets/Textures/Items/Bomb.png");
+        let gc = new GraphicsComponent(this.rendering.getNewQuad("Assets/Textures/Items/Bomb.png"));
         this.ecsManager.addComponent(entity, gc);
         let pc = new PositionComponent(2.0, 4.0);
         this.ecsManager.addComponent(entity, pc);

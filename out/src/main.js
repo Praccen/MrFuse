@@ -56,7 +56,7 @@ window.onload = () => {
     let updatesSinceRender = 0;
     let fpsUpdateTimer = 0.0;
     let frameCounter = 0;
-    let waitingForRestart = false;
+    let gameOverTextEnabled = false;
     /* Gameloop */
     function gameLoop() {
         let now = Date.now();
@@ -92,17 +92,16 @@ window.onload = () => {
         }
         ecsManager.updateRenderingSystems(dt);
         rendering.draw();
-        if (game.gameOver && !waitingForRestart) {
-            rendering.printText();
-            waitingForRestart = true;
-            window.addEventListener('keydown', function (event) {
-                if (event.key == " ") {
-                    waitingForRestart = false;
-                    rendering = new Rendering(gl);
-                    ecsManager = new ECSManager(rendering);
-                    game = new Game(gl, rendering, ecsManager);
-                }
-            });
+        if (game.gameOver) {
+            if (!gameOverTextEnabled) {
+                rendering.printText();
+            }
+            if (input.keys[' ']) {
+                rendering = new Rendering(gl);
+                ecsManager = new ECSManager(rendering);
+                game = new Game(gl, rendering, ecsManager);
+                gameOverTextEnabled = false;
+            }
         }
         requestAnimationFrame(gameLoop);
     }
@@ -112,6 +111,9 @@ window.onload = () => {
     function waitForTextureLoading() {
         if (texturesRequestedVsLoaded.loaded < texturesRequestedVsLoaded.req) {
             requestAnimationFrame(waitForTextureLoading);
+        }
+        else {
+            console.log("All " + texturesRequestedVsLoaded.loaded + "/" + texturesRequestedVsLoaded.req + "loaded!");
         }
     }
     console.log("Everything is ready.");
