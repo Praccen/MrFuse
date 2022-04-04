@@ -4,9 +4,10 @@ class AudioPlayer {
 	constructor() {
         this.sounds = {
             bell: new Audio("Assets/Audio/Effects/bell.m4a"), //https://opengameart.org/content/100-cc0-sfx
-            fuse: new Audio("Assets/Audio/Effects/fuse.ogg"),
+            fuse: new Audio("Assets/Audio/Effects/Firescape.mp3"),
             bump: new Audio("Assets/Audio/Effects/nutfall.flac"),
             explode: new Audio("Assets/Audio/Effects/explosion.wav"),
+            music: new Audio("Assets/Audio/Effects/DanceAndJump.ogg"),
         }
         
         for (let sound in this.sounds) {
@@ -14,7 +15,7 @@ class AudioPlayer {
         }
         
         this.setVolume("bell", 0.3);
-        this.setVolume('fuse', 0.1);
+        this.setVolume('fuse', 0.5);
 	}
     
     playSound(key, loop) {
@@ -32,5 +33,12 @@ class AudioPlayer {
     
     pauseSound(key) {
         this.sounds[key].pause();
+    }
+
+    stopAll() {
+        for(const s of Object.values(this.sounds)) {
+            s.pause();
+            s.currentTime = 0.0;
+        }
     }
 };

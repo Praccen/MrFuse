@@ -1,1 +1,1 @@
-{"version":3,"file":"AudioComponent.js","sourceRoot":"","sources":["../../../../../src/Engine/ECS/Components/AudioComponent.ts"],"names":[],"mappings":"AAAA,MAAM,cAAe,SAAQ,SAAS;IAEpC;QACE,KAAK,CAAC,iBAAiB,CAAC,KAAK,CAAC,CAAC;IACjC,CAAC;CACF"}
+{"version":3,"file":"AudioComponent.js","sourceRoot":"","sources":["../../../../../src/Engine/ECS/Components/AudioComponent.ts"],"names":[],"mappings":"AAAA,MAAM,cAAe,SAAQ,SAAS;IAKlC;QACI,KAAK,CAAC,iBAAiB,CAAC,KAAK,CAAC,CAAC;QAE/B,IAAI,CAAC,YAAY,GAAG,GAAG,CAAC;QACxB,IAAI,CAAC,gBAAgB,GAAG,GAAG,CAAC;IAChC,CAAC;CACJ"}

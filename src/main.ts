@@ -128,6 +128,7 @@ window.onload = () => {
                 rendering.printWin();
             }
             if (input.keys[' ']) {
+                audio.stopAll();
                 audio = new AudioPlayer();
                 rendering = new Rendering(gl);
                 ecsManager = new ECSManager(rendering, audio);
