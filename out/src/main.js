@@ -47,7 +47,8 @@ window.onload = () => {
     "use strict";
     let gl = initWebGL();
     let rendering = new Rendering(gl);
-    let ecsManager = new ECSManager(rendering);
+    let audio = new AudioPlayer();
+    let ecsManager = new ECSManager(rendering, audio);
     let game = new Game(gl, rendering, ecsManager);
     let lastTick = null;
     //Fixed update rate
@@ -87,6 +88,7 @@ window.onload = () => {
         }
         if (updatesSinceRender == 0) { // dt is faster than min update rate, allow faster updates
             game.update(updateTimer);
+            //audio.playSound('fuse', true);
             ecsManager.update(updateTimer);
             updateTimer = 0.0;
         }
@@ -100,8 +102,9 @@ window.onload = () => {
                 rendering.printWin();
             }
             if (input.keys[' ']) {
+                audio = new AudioPlayer();
                 rendering = new Rendering(gl);
-                ecsManager = new ECSManager(rendering);
+                ecsManager = new ECSManager(rendering, audio);
                 game = new Game(gl, rendering, ecsManager);
                 gameOverTextEnabled = false;
             }

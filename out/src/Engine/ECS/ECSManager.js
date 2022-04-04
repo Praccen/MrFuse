@@ -1,5 +1,5 @@
 class ECSManager {
-    constructor(rendering) {
+    constructor(rendering, audio) {
         this.camera = rendering.camera;
         this.rendering = rendering;
         this.systems = new Map();
@@ -9,12 +9,13 @@ class ECSManager {
         this.entityDeletionQueue = new Array();
         this.componentAdditionQueue = new Array();
         this.componentRemovalQueue = new Array();
-        this.initializeSystems();
+        this.initializeSystems(audio);
     }
-    initializeSystems() {
+    initializeSystems(audio) {
         this.systems.set("ANIMATION", new AnimationSystem());
         this.systems.set("COLLISION", new CollisionSystem());
         this.systems.set("INPUT", new InputSystem());
+        this.systems.set("AUDIO", new AudioSystem(audio));
         this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("CAMERA", new CameraSystem());
         this.systems.set("MAP", new MapSystem(this));
@@ -38,6 +39,7 @@ class ECSManager {
         this.systems.get("PLAYER").update(dt);
         this.systems.get("BOMB").update(dt);
         this.systems.get("GRAPHICS").update(dt);
+        this.systems.get("AUDIO").update(dt);
         this.systems.get("CAMERA").update(dt);
     }
     updateRenderingSystems(dt) {

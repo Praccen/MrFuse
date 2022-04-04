@@ -3,6 +3,7 @@ enum ComponentTypeEnum {
     COLLISION,
     GRAPHICS,
     INPUT,
+    AUDIO,
     MOVEMENT,
     PLAYER,
     BOMB,

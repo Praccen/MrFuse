@@ -48,6 +48,7 @@ class Game {
         ac.modAdvancement = { x: 2.0, y: 1.0 };
         ac.updateInterval = 0.7;
         this.ecsManager.addComponent(entity, ac);
+        this.ecsManager.addComponent(entity, new AudioComponent());
         return entity;
     }
     createBomb() {
@@ -76,6 +77,7 @@ class Game {
         ac.updateInterval = 0.05;
         this.ecsManager.addComponent(entity, ac);
         this.ecsManager.addComponent(entity, new BombComponent());
+        this.ecsManager.addComponent(entity, new AudioComponent());
         return entity;
     }
     update(dt) {
