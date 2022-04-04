@@ -28,8 +28,11 @@ class AudioPlayer {
     }
     stopAll() {
         for (const s of Object.values(this.sounds)) {
-            s.pause();
-            s.currentTime = 0.0;
+            const playPromise = s.play();
+            playPromise.then(() => {
+                s.pause();
+                s.currentTime = 0.0;
+            });
         }
     }
 }
