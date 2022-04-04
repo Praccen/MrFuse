@@ -4,6 +4,7 @@ class BombComponent extends Component {
     exploding: boolean;
     explosionTime: number;
     exploded: boolean;
+    secured: boolean;
 
     constructor() {
         super(ComponentTypeEnum.BOMB);
@@ -13,5 +14,6 @@ class BombComponent extends Component {
         this.exploded = false;
         this.exploding = false;
         this.explosionTime = 1.0;
+        this.secured = false;
     }
 }

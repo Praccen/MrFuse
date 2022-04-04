@@ -39,7 +39,11 @@ class Rendering {
         const length = this.quads.push(new Quad(this.gl, this.simpleShaderProgram, this.textureStore.getTexture(texturePath)));
         return this.quads[length - 1];
     }
-    printText() {
+    printWin() {
+        const texture = this.textureStore.getTexture("Assets/Textures/Text/GameOverText.png");
+        this.textQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
+    }
+    printLost() {
         const texture = this.textureStore.getTexture("Assets/Textures/Text/GameOverText.png");
         this.textQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
     }

@@ -6,6 +6,7 @@ class BombComponent extends Component {
         this.exploded = false;
         this.exploding = false;
         this.explosionTime = 1.0;
+        this.secured = false;
     }
 }
 //# sourceMappingURL=BombComponent.js.map

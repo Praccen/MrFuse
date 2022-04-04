@@ -41,26 +41,25 @@ const textureDictionary = {
 }
 
 class MapSystem extends System {
-    getCameraPos: () => { x: number; y: number };
     ecsManager: ECSManager;
     nrTiles: number;
     maxTiles: number;
 
     mapHeight: number;
     mapWidth: number;
+    mapLimit: {left: number, right: number};
     nextSection: number;
 
     constructor(
-        getCameraPos: () => { x: number; y: number },
         manager: ECSManager
     ) {
         super([ComponentTypeEnum.MAPTILE, ComponentTypeEnum.POSITION]);
-        this.getCameraPos = getCameraPos;
         this.ecsManager = manager;
         this.nrTiles = 0;
         this.maxTiles = 4;
         this.mapHeight = 0;
         this.mapWidth = 0;
+        this.mapLimit = {left: 0, right: 0};
         this.nextSection = 1;
 
         this.populateMap();
@@ -126,6 +125,8 @@ class MapSystem extends System {
             }
         }
         this.mapWidth = Math.max(x, this.mapWidth);
+        this.mapLimit.left = -1;
+        this.mapLimit.right = this.mapWidth + 1;
         this.mapHeight = y;
 
         // Actually place tiles

@@ -31,7 +31,7 @@ class ECSManager {
         this.systems.set("INPUT", new InputSystem());
         this.systems.set("MOVEMENT", new MovementSystem());
         this.systems.set("CAMERA", new CameraSystem());
-        this.systems.set("MAP", new MapSystem(this.camera.getPosition, this));
+        this.systems.set("MAP", new MapSystem(this));
         this.systems.set("GRAPHICS", new GraphicsSystem(this.rendering));
         this.systems.set("PLAYER", new PlayerSystem());
         this.systems.set("BOMB", new BombSystem(this));
@@ -87,6 +87,10 @@ class ECSManager {
             }
         }
         return null;
+    }
+
+    getSystem(type: string): System {
+        return this.systems.get(type);
     }
     
     // Private

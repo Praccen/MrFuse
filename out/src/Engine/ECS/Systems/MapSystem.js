@@ -37,14 +37,14 @@ const textureDictionary = {
     5: "Assets/Textures/Environment/Platform.png",
 };
 class MapSystem extends System {
-    constructor(getCameraPos, manager) {
+    constructor(manager) {
         super([ComponentTypeEnum.MAPTILE, ComponentTypeEnum.POSITION]);
-        this.getCameraPos = getCameraPos;
         this.ecsManager = manager;
         this.nrTiles = 0;
         this.maxTiles = 4;
         this.mapHeight = 0;
         this.mapWidth = 0;
+        this.mapLimit = { left: 0, right: 0 };
         this.nextSection = 1;
         this.populateMap();
     }
@@ -100,6 +100,8 @@ class MapSystem extends System {
             }
         }
         this.mapWidth = Math.max(x, this.mapWidth);
+        this.mapLimit.left = -1;
+        this.mapLimit.right = this.mapWidth + 1;
         this.mapHeight = y;
         // Actually place tiles
         y = this.mapHeight - 1;

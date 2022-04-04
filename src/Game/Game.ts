@@ -7,6 +7,8 @@ class Game {
     private bombEntity: Entity;
 
     gameOver: boolean;
+    gameWon: boolean;
+    gameLost: boolean;
 
     constructor(gl: WebGL2RenderingContext, rendering: Rendering, ecsManager: ECSManager) {
         this.gl = gl;
@@ -20,6 +22,8 @@ class Game {
         this.bombEntity = this.createBomb();
 
         this.gameOver = false;
+        this.gameWon = false;
+        this.gameLost = false;
 
         // Load all textures to avoid loading mid game
         rendering.loadTextureToStore("Assets/Textures/Buttons/Buttons.png");
@@ -96,7 +100,15 @@ class Game {
     }
     update(dt: number) {
         const bc = <BombComponent>this.bombEntity.getComponent(ComponentTypeEnum.BOMB);
-        if(bc) this.gameOver = bc.exploded;
+        if(bc && !this.gameWon && !this.gameLost) {
+            if(bc.secured) {
+                this.gameWon = true;
+            }
+            else if(bc.exploded) {
+                this.gameLost = true;
+            }
+        }
+
         
         let pp = <PositionComponent> this.playerEntity.getComponent(ComponentTypeEnum.POSITION);
         let bp = <PositionComponent> this.bombEntity.getComponent(ComponentTypeEnum.POSITION);

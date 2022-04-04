@@ -92,9 +92,12 @@ window.onload = () => {
         }
         ecsManager.updateRenderingSystems(dt);
         rendering.draw();
-        if (game.gameOver) {
-            if (!gameOverTextEnabled) {
-                rendering.printText();
+        if (game.gameLost || game.gameWon) {
+            if (!gameOverTextEnabled && game.gameLost) {
+                rendering.printLost();
+            }
+            else if (!gameOverTextEnabled && game.gameWon) {
+                rendering.printWin();
             }
             if (input.keys[' ']) {
                 rendering = new Rendering(gl);

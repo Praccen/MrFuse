@@ -8,6 +8,8 @@ class Game {
         this.playerEntity = this.createPlayerEntity();
         this.bombEntity = this.createBomb();
         this.gameOver = false;
+        this.gameWon = false;
+        this.gameLost = false;
         // Load all textures to avoid loading mid game
         rendering.loadTextureToStore("Assets/Textures/Buttons/Buttons.png");
         rendering.loadTextureToStore("Assets/Textures/Character/Character.png");
@@ -78,8 +80,14 @@ class Game {
     }
     update(dt) {
         const bc = this.bombEntity.getComponent(ComponentTypeEnum.BOMB);
-        if (bc)
-            this.gameOver = bc.exploded;
+        if (bc && !this.gameWon && !this.gameLost) {
+            if (bc.secured) {
+                this.gameWon = true;
+            }
+            else if (bc.exploded) {
+                this.gameLost = true;
+            }
+        }
         let pp = this.playerEntity.getComponent(ComponentTypeEnum.POSITION);
         let bp = this.bombEntity.getComponent(ComponentTypeEnum.POSITION);
         if (input.keys["1"]) {
