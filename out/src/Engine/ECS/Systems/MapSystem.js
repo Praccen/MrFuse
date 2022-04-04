@@ -1,5 +1,4 @@
-const mapSrc = `
-000000000000
+let mapSrc = `000000000000
 000000000022
 005555550000
 000000003000
@@ -84,24 +83,29 @@ class MapSystem extends System {
         // }
     }
     populateMap() {
-        let y = 0;
+        let urlParams = new URLSearchParams(document.location.search);
+        if (urlParams.has("map")) {
+            mapSrc = urlParams.get("map");
+        }
+        let y = 1;
         let x = 0;
         // Find width and height
         for (let i = mapSrc.length - 1; i >= 0; i--) {
             x++;
-            if (mapSrc.charAt(i) == '\n') {
+            if (mapSrc.charAt(i) == '\n' || mapSrc.charAt(i) == ';') {
                 this.mapWidth = Math.max(x - 1, this.mapWidth);
                 y++;
                 x = 0;
             }
         }
+        this.mapWidth = Math.max(x, this.mapWidth);
         this.mapHeight = y;
         // Actually place tiles
-        y = this.mapHeight;
+        y = this.mapHeight - 1;
         x = 0;
         for (let i = 0; i < mapSrc.length; i++) {
             x++;
-            if (mapSrc.charAt(i) == '\n') {
+            if (mapSrc.charAt(i) == '\n' || mapSrc.charAt(i) == ';') {
                 y--;
                 x = 0;
             }
