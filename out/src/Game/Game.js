@@ -30,7 +30,7 @@ class Game {
         let pc = new PositionComponent(2.0);
         pc.scale.xy = new Vec2(1.0, 1.5);
         this.ecsManager.addComponent(entity, pc);
-        this.ecsManager.addComponent(entity, new InputComponent());
+        //this.ecsManager.addComponent(entity, new InputComponent());
         this.ecsManager.addComponent(entity, new MovementComponent());
         let cf = new CameraFocusComponent(this.rendering.camera);
         cf.offset.y = 0.7;

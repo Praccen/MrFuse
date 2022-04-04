@@ -76,19 +76,20 @@ window.onload = () => {
 
     let gameOverTextEnabled = false;
     
+    let intro = true;
 
 	/* Gameloop */
 	function gameLoop() {
-        //If user has interacted with the game, allow audio to play
-        if (
-            !audio.active &&
-            (input.mouseClicked ||
-                input.keys["w"] ||
-                input.keys["a"] ||
-                input.keys["s"] ||
-                input.keys["d"])
-        ) {
-            audio.active = true;
+        if(intro) {
+            rendering.printWin();
+            if(input.keys[" "] || input.mouseClicked) {
+                //game is ready to start, add input to player
+                ecsManager.addComponent(game.playerEntity, new InputComponent());
+                intro = false;
+                //If user has interacted with the game, allow audio to play
+                audio.active = true;
+                rendering.clearText();
+            }
         }
 
         let now = Date.now();
@@ -139,12 +140,14 @@ window.onload = () => {
             } else if (!gameOverTextEnabled && game.gameWon) {
                 rendering.printWin();
             }
-            if (input.keys[" "]) {
+            if (input.keys[" "] || input.mouseClicked) {
                 audio.stopAll();
                 audio = new AudioPlayer();
+                audio.active = true; //since game is ongoing music can start directly
                 rendering = new Rendering(gl);
                 ecsManager = new ECSManager(rendering, audio);
                 game = new Game(gl, rendering, ecsManager);
+                ecsManager.addComponent(game.playerEntity, new InputComponent());
                 gameOverTextEnabled = false;
             }
         }
