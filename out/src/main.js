@@ -62,7 +62,7 @@ window.onload = () => {
     /* Gameloop */
     function gameLoop() {
         if (intro) {
-            rendering.printWin();
+            rendering.printIntro();
             if (input.keys[" "] || input.mouseClicked) {
                 //game is ready to start, add input to player
                 ecsManager.addComponent(game.playerEntity, new InputComponent());

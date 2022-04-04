@@ -79,6 +79,10 @@ class Rendering {
 		return this.quads[length-1];
 	}
 
+    printIntro(): void {
+        const texture = this.textureStore.getTexture("Assets/Textures/Text/GameWinText.png");
+		this.textQuad= new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
+    }
     printWin(): void {
         const texture = this.textureStore.getTexture("Assets/Textures/Text/GameWinText.png");
 		this.textQuad= new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
