@@ -9,7 +9,7 @@ class Game {
         this.bombEntity = this.createBomb();
         this.gameOver = false;
         // Load all textures to avoid loading mid game
-        rendering.loadTextureToStore("Assets/Textures/Buttons/Button.png");
+        rendering.loadTextureToStore("Assets/Textures/Buttons/Buttons.png");
         rendering.loadTextureToStore("Assets/Textures/Character/Character.png");
         rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricks.png");
         rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricksBackground.png");

@@ -113,7 +113,7 @@ window.onload = () => {
             requestAnimationFrame(waitForTextureLoading);
         }
         else {
-            console.log("All " + texturesRequestedVsLoaded.loaded + "/" + texturesRequestedVsLoaded.req + "loaded!");
+            console.log("All " + texturesRequestedVsLoaded.loaded + "/" + texturesRequestedVsLoaded.req + " loaded!");
         }
     }
     console.log("Everything is ready.");

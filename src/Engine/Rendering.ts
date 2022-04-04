@@ -21,6 +21,7 @@ class Rendering {
 	private screenFramebuffer: Framebuffer;
 	private screenQuad: ScreenQuad;
     private textQuad: ScreenQuad;
+    private buttonsQuad: ScreenQuad;
 
 	constructor(gl: WebGL2RenderingContext) {
 		this.gl = gl;
@@ -39,7 +40,8 @@ class Rendering {
 		this.screenFramebuffer = new Framebuffer(this.gl, this.gl.canvas.width, this.gl.canvas.height);
 		this.screenQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.screenFramebuffer.texture);
         this.textQuad = null;
-        //this.printText();
+
+        this.buttonsQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.textureStore.getTexture("Assets/Textures/Buttons/Buttons.png"));
 
 		this.initGL();
 
@@ -81,6 +83,7 @@ class Rendering {
         const texture = this.textureStore.getTexture("Assets/Textures/Text/GameOverText.png");
 		this.textQuad= new ScreenQuad(this.gl, this.screenQuadShaderProgram, texture);
     }
+
     clearText(): void {
         this.textQuad = null;
     }
@@ -110,9 +113,14 @@ class Rendering {
 		// Disable depth for screen quad(s) rendering
 		this.gl.disable(this.gl.DEPTH_TEST); 
 
-        if(this.textQuad){
-        this.screenQuadShaderProgram.use();
-        this.textQuad.draw();
+        if (this.textQuad){
+            this.screenQuadShaderProgram.use();
+            this.textQuad.draw();
+        }
+
+        if (input.drawHud) {
+            this.screenQuadShaderProgram.use();
+            this.buttonsQuad.draw();
         }
 
         if (this.useCrt) {

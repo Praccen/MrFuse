@@ -12,7 +12,7 @@ class Rendering {
         this.screenFramebuffer = new Framebuffer(this.gl, this.gl.canvas.width, this.gl.canvas.height);
         this.screenQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.screenFramebuffer.texture);
         this.textQuad = null;
-        //this.printText();
+        this.buttonsQuad = new ScreenQuad(this.gl, this.screenQuadShaderProgram, this.textureStore.getTexture("Assets/Textures/Buttons/Buttons.png"));
         this.initGL();
         this.quads = new Array();
     }
@@ -69,6 +69,10 @@ class Rendering {
         if (this.textQuad) {
             this.screenQuadShaderProgram.use();
             this.textQuad.draw();
+        }
+        if (input.drawHud) {
+            this.screenQuadShaderProgram.use();
+            this.buttonsQuad.draw();
         }
         if (this.useCrt) {
             // Crt effect

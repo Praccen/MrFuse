@@ -22,7 +22,7 @@ class Game {
         this.gameOver = false;
 
         // Load all textures to avoid loading mid game
-        rendering.loadTextureToStore("Assets/Textures/Buttons/Button.png");
+        rendering.loadTextureToStore("Assets/Textures/Buttons/Buttons.png");
         rendering.loadTextureToStore("Assets/Textures/Character/Character.png");
         rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricks.png");
         rendering.loadTextureToStore("Assets/Textures/Environment/CobbleBricksBackground.png");
@@ -31,7 +31,6 @@ class Game {
         rendering.loadTextureToStore("Assets/Textures/Environment/WallPlanks.png");
         rendering.loadTextureToStore("Assets/Textures/Items/Bomb.png");
         rendering.loadTextureToStore("Assets/Textures/Text/GameOverText.png");
-
     }
 
     createPlayerEntity(): Entity {
