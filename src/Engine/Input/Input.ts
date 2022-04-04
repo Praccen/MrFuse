@@ -1,6 +1,7 @@
 class Input {
 	keys: boolean[];
 	mousePosition: {x: number, y:number};
+    mouseClicked: boolean;
 
     private touchUsed: boolean;
     drawHud: boolean;
@@ -8,6 +9,7 @@ class Input {
 	constructor() {
 		this.keys = [];
 		this.mousePosition = {x: 0, y: 0};
+        this.mouseClicked = false;
 
         this.drawHud = false;
 
@@ -27,6 +29,12 @@ class Input {
 		canvas.addEventListener("mousemove", function (event) {
 			self.mousePosition =  {x: event.clientX, y: event.clientY};
 		});
+        document.addEventListener("mousedown", (event) => {
+            self.mouseClicked = true;
+        });
+        document.addEventListener("mouseup", (event) => {
+            self.mouseClicked = false;
+        })
 
         document.addEventListener("touchstart", function (event) {
 			self.handleTouch(event.touches);

@@ -2,6 +2,7 @@ class Input {
     constructor() {
         this.keys = [];
         this.mousePosition = { x: 0, y: 0 };
+        this.mouseClicked = false;
         this.drawHud = false;
         //----Controls----
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values <-- for key codes
@@ -16,6 +17,12 @@ class Input {
         });
         canvas.addEventListener("mousemove", function (event) {
             self.mousePosition = { x: event.clientX, y: event.clientY };
+        });
+        document.addEventListener("mousedown", (event) => {
+            self.mouseClicked = true;
+        });
+        document.addEventListener("mouseup", (event) => {
+            self.mouseClicked = false;
         });
         document.addEventListener("touchstart", function (event) {
             self.handleTouch(event.touches);

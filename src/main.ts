@@ -75,12 +75,25 @@ window.onload = () => {
     let frameCounter = 0;
 
     let gameOverTextEnabled = false;
+    
 
 	/* Gameloop */
 	function gameLoop() {
-		let now = Date.now();
-		let dt = (now - (lastTick || now)) * 0.001;
-		lastTick = now;
+        //If user has interacted with the game, allow audio to play
+        if (
+            !audio.active &&
+            (input.mouseClicked ||
+                input.keys["w"] ||
+                input.keys["a"] ||
+                input.keys["s"] ||
+                input.keys["d"])
+        ) {
+            audio.active = true;
+        }
+
+        let now = Date.now();
+        let dt = (now - (lastTick || now)) * 0.001;
+        lastTick = now;
 
         frameCounter++;
         fpsUpdateTimer += dt;
@@ -92,42 +105,42 @@ window.onload = () => {
             // console.log(fps); // Uncomment to log fps every half second
         }
 
-		// Constant update rate
-		updateTimer += dt;
-		updatesSinceRender = 0;
+        // Constant update rate
+        updateTimer += dt;
+        updatesSinceRender = 0;
 
-		//Only update if update timer goes over update rate
-		while (updateTimer >= minUpdateRate) {
-			if (updatesSinceRender >= 20) {
-				// Too many updates, throw away the rest of dt (makes the game run in slow-motion)
-				updateTimer = 0;
-				break;
-			}
+        //Only update if update timer goes over update rate
+        while (updateTimer >= minUpdateRate) {
+            if (updatesSinceRender >= 20) {
+                // Too many updates, throw away the rest of dt (makes the game run in slow-motion)
+                updateTimer = 0;
+                break;
+            }
 
-			game.update(minUpdateRate);
-			ecsManager.update(minUpdateRate);
-			updateTimer -= minUpdateRate;
-			updatesSinceRender++;
-		}
+            game.update(minUpdateRate);
+            ecsManager.update(minUpdateRate);
+            updateTimer -= minUpdateRate;
+            updatesSinceRender++;
+        }
 
-		if (updatesSinceRender == 0) { // dt is faster than min update rate, allow faster updates
-			game.update(updateTimer);
+        if (updatesSinceRender == 0) {
+            // dt is faster than min update rate, allow faster updates
+            game.update(updateTimer);
             //audio.playSound('fuse', true);
-			ecsManager.update(updateTimer);
-			updateTimer = 0.0;
-		}
+            ecsManager.update(updateTimer);
+            updateTimer = 0.0;
+        }
 
-		ecsManager.updateRenderingSystems(dt);
-		rendering.draw();
+        ecsManager.updateRenderingSystems(dt);
+        rendering.draw();
 
-        if(game.gameLost || game.gameWon){
+        if (game.gameLost || game.gameWon) {
             if (!gameOverTextEnabled && game.gameLost) {
                 rendering.printLost();
-            }
-            else if(!gameOverTextEnabled && game.gameWon) {
+            } else if (!gameOverTextEnabled && game.gameWon) {
                 rendering.printWin();
             }
-            if (input.keys[' ']) {
+            if (input.keys[" "]) {
                 audio.stopAll();
                 audio = new AudioPlayer();
                 rendering = new Rendering(gl);
@@ -138,7 +151,7 @@ window.onload = () => {
         }
 
         requestAnimationFrame(gameLoop);
-	}
+    }
 
     window.addEventListener("resize", function () {
 		resize(gl, rendering);

@@ -1,5 +1,6 @@
 class AudioPlayer {
     sounds: object;
+    active: boolean; //set to true when user has interacted with document
 
 	constructor() {
         this.sounds = {
@@ -9,18 +10,20 @@ class AudioPlayer {
             explode: new Audio("Assets/Audio/Effects/explosion.wav"),
             music: new Audio("Assets/Audio/Effects/DanceAndJump.ogg"),
         }
-        
+        this.active = false;
+
         for (let sound in this.sounds) {
             this.sounds[sound].preload = "auto";
         }
         
         this.setVolume("bell", 0.3);
-        this.setVolume('fuse', 0.5);
+        this.setVolume('fuse', 0.0);
+        this.setVolume('music', 0.6);
 	}
     
     playSound(key, loop) {
         this.sounds[key].loop = loop;
-        this.sounds[key].play();
+        this.active && this.sounds[key].play();
     }
     
     setVolume(key, volume) {
