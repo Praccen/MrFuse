@@ -34,6 +34,7 @@ class Game {
         rendering.loadTextureToStore("Assets/Textures/Environment/Platform.png");
         rendering.loadTextureToStore("Assets/Textures/Environment/WallPlanks.png");
         rendering.loadTextureToStore("Assets/Textures/Items/Bomb.png");
+        rendering.loadTextureToStore("Assets/Textures/Text/GameIntroText.png");
         rendering.loadTextureToStore("Assets/Textures/Text/GameWinText.png");
         rendering.loadTextureToStore("Assets/Textures/Text/GameOverText.png");
     }
